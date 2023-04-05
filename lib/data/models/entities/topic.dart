@@ -1,15 +1,4 @@
 class Topic {
-  late final int id;
-  late final String name;
-  late final String slug;
-  String? createdAt;
-  String? description;
-  String? followersCount;
-  int? postsCount;
-  String? updatedAt;
-  String? image;
-  bool? trending;
-
   Topic({
     required this.id,
     required this.name,
@@ -24,20 +13,31 @@ class Topic {
   });
 
   Topic.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    slug = json['slug'];
-    createdAt = json['created_at'];
-    description = json['description'];
-    followersCount = displayFollowerCount(json['followers_count']);
-    postsCount = json['posts_count'];
-    updatedAt = json['updated_at'];
-    image = json['image'];
-    trending = json['trending'];
+    id = json['id'] as int;
+    name = json['name'] as String;
+    slug = json['slug'] as String;
+    createdAt = json['created_at'] as String?;
+    description = json['description'] as String?;
+    followersCount = displayFollowerCount(json['followers_count'] as int?);
+    postsCount = json['posts_count'] as int?;
+    updatedAt = json['updated_at'] as String?;
+    image = json['image'] as String?;
+    trending = json['trending'] as bool?;
   }
 
+  late final int id;
+  late final String name;
+  late final String slug;
+  String? createdAt;
+  String? description;
+  String? followersCount;
+  int? postsCount;
+  String? updatedAt;
+  String? image;
+  bool? trending;
+
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = {};
+    final data = <String, dynamic>{};
     data['id'] = id;
     data['name'] = name;
     data['slug'] = slug;
@@ -51,12 +51,15 @@ class Topic {
     return data;
   }
 
-  displayFollowerCount(followers) {
-    String followerAsString = "";
+  String displayFollowerCount(int? followers) {
+    var followerAsString = '';
+    if (followers == null) {
+      return followerAsString;
+    }
     if (followers >= 1000) {
-      followerAsString = (followers / 1000).toStringAsFixed(1) + "K Followers";
+      followerAsString = '${(followers / 1000).toStringAsFixed(1)}K Followers';
     } else {
-      followerAsString = followers.toStringAsFixed(1) + " Followers";
+      followerAsString = '${followers.toStringAsFixed(1)} Followers';
     }
     return followerAsString;
   }

@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-
-import '../models/models.dart';
+import 'package:product_hunt/data/fake/post_fake_data.dart';
+import 'package:product_hunt/data/models/models.dart';
 
 class ApiClient {
   ApiClient({
@@ -14,14 +14,16 @@ class ApiClient {
   final http.Client httpClient;
 
   Future<FetchPostsResult> fetchPosts() async {
-    final response = await httpClient.get(Uri.parse('$baseUrl/v1/posts/all'));
-    final results = json.decode(response.body) as Map<String, dynamic>;
+    final data = PostFakeData().data;
+    return FetchPostsResult.fromJson(data);
+    // final response = await httpClient.get(Uri.parse('$baseUrl/v1/posts/all'));
+    // final results = json.decode(response.body) as Map<String, dynamic>;
 
-    if (response.statusCode == 200) {
-      return FetchPostsResult.fromJson(results);
-    } else {
-      throw FetchError.fromJson(results);
-    }
+    // if (response.statusCode == 200) {
+    //   return FetchPostsResult.fromJson(results);
+    // } else {
+    //   throw FetchError.fromJson(results);
+    // }
   }
 
   Future<FetchPostResult> fetchPost(String postId) async {

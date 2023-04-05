@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:product_hunt/app/nav_bar/cubit/nav_bar_cubit.dart';
-import 'package:product_hunt/app/nav_bar/widgets/bottom_nav_bar.dart';
-import 'package:product_hunt/features/counter/view/counter_page.dart';
+import 'package:product_hunt/core/constants/color_palatte.dart';
+import 'package:product_hunt/features/post/post.dart';
+import 'package:product_hunt/features/topic/topic.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 class BottomNav extends StatefulWidget {
+  const BottomNav({super.key});
+
   @override
   _BottomNavState createState() => _BottomNavState();
 }
@@ -18,48 +22,50 @@ class _BottomNavState extends State<BottomNav> {
         listener: (context, state) {},
         builder: (context, state) {
           return Scaffold(
-            bottomNavigationBar: BottomNavBar(
-              onChange: (index) {
-                NavBarCubit.get(context).changeBottomNavBar(index);
-              },
-              defaultSelectedIndex: 0,
-              backgroundColor: Colors.grey.shade100,
-              radius: 25,
-              showLabel: false,
-              textList: const [
-                'Home',
-                'Camera',
-                'Messenger',
-                'User',
+            bottomNavigationBar: SalomonBottomBar(
+              currentIndex: state.currentIndex,
+              onTap: (index) => setState(
+                () => NavBarCubit.get(context).changeBottomNavBar(index),
+              ),
+              selectedItemColor: ColorPalette.backgroundColorReverse,
+              backgroundColor: ColorPalette.backgroundScaffoldColor,
+              unselectedItemColor: ColorPalette.backgroundColorReverse,
+              selectedColorOpacity: 0.2,
+              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              items: [
+                SalomonBottomBarItem(
+                  icon: const Icon(
+                    Icons.home,
+                  ),
+                  title: const Text('Home'),
+                ),
+                SalomonBottomBarItem(
+                  icon: const Icon(Icons.tips_and_updates_sharp),
+                  title: const Text('Updates'),
+                ),
+                SalomonBottomBarItem(
+                  icon: const Icon(Icons.explore),
+                  title: const Text('Topics'),
+                ),
+                SalomonBottomBarItem(
+                  icon: const Icon(Icons.search),
+                  title: const Text('Search'),
+                ),
               ],
-              iconList: const [
-                Icons.home_outlined,
-                Icons.camera,
-                Icons.mail_outline,
-                Icons.person_outline,
-              ],
-            ),
-            appBar: AppBar(
-              title: const Text('Custom Nav bar'),
             ),
             extendBody: true,
-            body: Padding(
-              padding: const EdgeInsets.only(bottom: 60),
-              child: BlocBuilder<NavBarCubit, NavBarState>(
-                builder: (context, state) {
-                  switch (state.currentIndex) {
-                    case 0:
-                      return CounterPage();
-                    default:
-                      return Container(
-                        color: Colors.grey.shade300,
-                        child: Center(
-                          child: Text('Hello from Item ${state.currentIndex}'),
-                        ),
-                      );
-                  }
-                },
-              ),
+            body: BlocBuilder<NavBarCubit, NavBarState>(
+              builder: (context, state) {
+                return IndexedStack(
+                  index: state.currentIndex,
+                  children: [
+                    const PostPage(),
+                    const TopicPage(),
+                    Container(),
+                    Container(),
+                  ],
+                );
+              },
             ),
           );
         },

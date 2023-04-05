@@ -1,4 +1,4 @@
-import 'entities.dart';
+import 'package:product_hunt/data/models/entities/entities.dart';
 
 class Makers {
   Makers({
@@ -12,6 +12,19 @@ class Makers {
     required this.profileUrl,
     required this.imageUrl,
   });
+
+  Makers.fromJson(Map<String, dynamic> json) {
+    id = json['id'] as int;
+    createdAt = json['created_at'] as String;
+    name = json['name'] as String;
+    username = json['username'] as String;
+    headline = null;
+    twitterUsername = null;
+    websiteUrl = null;
+    profileUrl = json['profile_url'] as String;
+    imageUrl = ImageUrl.fromJson(json['image_url'] as Map<String, dynamic>);
+  }
+
   late final int id;
   late final String createdAt;
   late final String name;
@@ -21,18 +34,6 @@ class Makers {
   late final String? websiteUrl;
   late final String profileUrl;
   late final ImageUrl imageUrl;
-
-  Makers.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    createdAt = json['created_at'];
-    name = json['name'];
-    username = json['username'];
-    headline = null;
-    twitterUsername = null;
-    websiteUrl = null;
-    profileUrl = json['profile_url'];
-    imageUrl = ImageUrl.fromJson(json['image_url']);
-  }
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};

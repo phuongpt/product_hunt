@@ -1,22 +1,20 @@
-import '../models.dart';
+import 'package:product_hunt/data/models/models.dart';
 
 class FetchPostsResult {
   FetchPostsResult({
     required this.posts,
   });
-  late final List<Post>? posts;
 
   FetchPostsResult.fromJson(Map<String, dynamic> json) {
     if (json['posts'] != null) {
-      posts = List.from(json['posts']).map((e) => Post.fromJson(e)).toList();
+      posts = List.from(json['posts'] as Iterable).map((e) => Post.fromJson(e as Map<String, dynamic>)).toList();
     }
   }
+  late final List<Post> posts;
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
-    if (posts != null) {
-      data['posts'] = posts!.map((e) => e.toJson()).toList();
-    }
+    data['posts'] = posts.map((e) => e.toJson()).toList();
     return data;
   }
 }

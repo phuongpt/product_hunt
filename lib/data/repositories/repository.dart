@@ -1,27 +1,25 @@
 import 'dart:async';
 
-import '../apis/api_client.dart';
-import '../caches/caches.dart';
-import '../models/models.dart';
+import 'package:product_hunt/data/apis/api_client.dart';
+import 'package:product_hunt/data/models/models.dart';
 
-class PostRepository {
-  const PostRepository(this.cache, this.client);
+class Repository {
+  Repository({ApiClient? client}) : _client = client ?? ApiClient();
 
-  final PostCache cache;
-  final ApiClient client;
+  final ApiClient _client;
 
-  Future<FetchPostsResult> fetchPosts() async {
-    final result = await client.fetchPosts();
-    return result;
+  Future<List<Post>> fetchPosts() async {
+    final result = await _client.fetchPosts();
+    return result.posts;
   }
 
   Future<FetchPostResult> fetchPost(String postId) async {
-    final result = await client.fetchPost(postId);
+    final result = await _client.fetchPost(postId);
     return result;
   }
 
   Future<FetchTopicsResult> fetchTopics() async {
-    final result = await client.fetchTopics();
+    final result = await _client.fetchTopics();
     return result;
   }
 }

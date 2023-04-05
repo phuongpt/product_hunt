@@ -16,6 +16,10 @@ dependencies:
     sdk: flutter
   http: ^0.13.5
   intl: ^0.17.0
+  salomon_bottom_bar: ^3.3.2
+  sizer: ^2.0.15
+  stream_transform: ^2.1.0
+  styled_widget: ^0.4.1
 
 dev_dependencies:
   bloc_test: ^9.1.1

@@ -1,4 +1,4 @@
-import 'entities.dart';
+import 'package:product_hunt/data/models/entities/entities.dart';
 
 class Post {
   Post({
@@ -26,6 +26,29 @@ class Post {
     required this.topics,
     required this.user,
   });
+
+  Post.fromJson(Map<String, dynamic> json) {
+    commentsCount = json['comments_count'] as int;
+    id = json['id'] as int;
+    name = json['name'] as String;
+    productState = json['product_state'] as String;
+    tagline = json['tagline'] as String;
+    slug = json['slug'] as String;
+    votesCount = json['votes_count'] as int;
+    day = json['day'] as String;
+    categoryId = null;
+    createdAt = json['created_at'] as String;
+    currentUser = CurrentUser.fromJson(json['current_user'] as Map<String, dynamic>);
+    discussionUrl = json['discussion_url'] as String;
+    exclusive = null;
+    featured = json['featured'] as bool;
+    redirectUrl = json['redirect_url'] as String;
+    screenshotUrl = ScreenshotUrl.fromJson(json['screenshot_url'] as Map<String, dynamic>);
+    thumbnail = Thumbnail.fromJson(json['thumbnail'] as Map<String, dynamic>);
+    user = User.fromJson(json['user'] as Map<String, dynamic>);
+    // makers = List.from(json['makers'] as Iterable<dynamic>).map((e) => Makers.fromJson(e as Map<String, dynamic>)).toList();
+    topics = List.from(json['topics'] as Iterable<dynamic>).map((e) => Topic.fromJson(e as Map<String, dynamic>)).toList();
+  }
   late final int commentsCount;
   late final int id;
   late final String name;
@@ -49,32 +72,6 @@ class Post {
   late final Thumbnail thumbnail;
   late final List<Topic> topics;
   late final User user;
-
-  Post.fromJson(Map<String, dynamic> json) {
-    commentsCount = json['comments_count'];
-    id = json['id'];
-    name = json['name'];
-    productState = json['product_state'];
-    tagline = json['tagline'];
-    slug = json['slug'];
-    votesCount = json['votes_count'];
-    day = json['day'];
-    categoryId = null;
-    createdAt = json['created_at'];
-    currentUser = CurrentUser.fromJson(json['current_user']);
-    discussionUrl = json['discussion_url'];
-    exclusive = null;
-    featured = json['featured'];
-    iosFeaturedAt = json['ios_featured_at'];
-    makerInside = json['maker_inside'];
-    makers = List.from(json['makers']).map((e) => Makers.fromJson(e)).toList();
-    platforms = List.castFrom<dynamic, dynamic>(json['platforms']);
-    redirectUrl = json['redirect_url'];
-    screenshotUrl = ScreenshotUrl.fromJson(json['screenshot_url']);
-    thumbnail = Thumbnail.fromJson(json['thumbnail']);
-    topics = List.from(json['topics']).map((e) => Topic.fromJson(e)).toList();
-    user = User.fromJson(json['user']);
-  }
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
