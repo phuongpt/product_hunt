@@ -8,7 +8,6 @@ environment:
 
 dependencies:
   bloc: ^8.1.1
-  comment_tree: ^0.3.0
   equatable: ^2.0.5
   flutter:
     sdk: flutter
@@ -17,9 +16,12 @@ dependencies:
     sdk: flutter
   http: ^0.13.5
   intl: ^0.17.0
+  random_avatar: ^0.0.8
+  random_name_generator: ^1.1.0
   salomon_bottom_bar: ^3.3.2
   sizer: ^2.0.15
   styled_widget: ^0.4.1
+  timeago: ^3.3.0
 
 dev_dependencies:
   bloc_test: ^9.1.1

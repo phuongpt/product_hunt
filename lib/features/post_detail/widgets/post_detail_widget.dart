@@ -24,7 +24,7 @@ class PostDetailWidget extends StatelessWidget {
           const Buttons(),
           DescriptionLine(text: item.description, date: item.day),
           TopicsLine(topics: item.topics),
-          const CommentTree()
+          CommentsWidget(comments: item.comments)
         ],
       ),
     );
