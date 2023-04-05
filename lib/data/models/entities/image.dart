@@ -35,10 +35,10 @@ class ImageUrl {
   }
 }
 
-class ScreenshotUrl {
-  ScreenshotUrl({this.s300px, this.s850px});
+class Screenshots {
+  Screenshots({this.s300px, this.s850px});
 
-  ScreenshotUrl.fromJson(Map<String, dynamic> json) {
+  Screenshots.fromJson(Map<String, dynamic> json) {
     s300px = json['300px'] as String;
     s850px = json['850px'] as String;
   }

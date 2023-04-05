@@ -46,6 +46,13 @@ extension ExtendedTextStyle on TextStyle {
     );
   }
 
+  TextStyle get fontButton {
+    return copyWith(
+      fontSize: 18,
+      height: 18 / 16,
+    );
+  }
+
   TextStyle get fontSubTitle {
     return copyWith(
       fontSize: 16,
@@ -69,12 +76,16 @@ extension ExtendedTextStyle on TextStyle {
     return copyWith(color: ColorPalette.primaryColor);
   }
 
-  TextStyle get whiteTextColor {
+  TextStyle get subTitleColor {
+    return copyWith(color: ColorPalette.subTitleColor);
+  }
+
+  TextStyle get lightTextColor {
     return copyWith(color: Colors.white);
   }
 
-  TextStyle get subTitleColor {
-    return copyWith(color: ColorPalette.subTitleColor);
+  TextStyle get darkTextColor {
+    return copyWith(color: Colors.black);
   }
 
   // convenience functions

@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   bloc: ^8.1.1
+  comment_tree: ^0.3.0
   equatable: ^2.0.5
   flutter:
     sdk: flutter
@@ -18,7 +19,6 @@ dependencies:
   intl: ^0.17.0
   salomon_bottom_bar: ^3.3.2
   sizer: ^2.0.15
-  stream_transform: ^2.1.0
   styled_widget: ^0.4.1
 
 dev_dependencies:
@@ -31,3 +31,5 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
+  assets:
+    - assets/json/

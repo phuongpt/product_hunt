@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:product_hunt/data/fake/post_fake_data.dart';
 import 'package:product_hunt/data/models/models.dart';
 
 class ApiClient {
@@ -14,8 +14,9 @@ class ApiClient {
   final http.Client httpClient;
 
   Future<FetchPostsResult> fetchPosts() async {
-    final data = PostFakeData().data;
-    return FetchPostsResult.fromJson(data);
+    final raw = await rootBundle.loadString('assets/json/post_fake_data.json');
+    final jsonData = json.decode(raw);
+    return FetchPostsResult.fromJson(jsonData as Map<String, dynamic>);
     // final response = await httpClient.get(Uri.parse('$baseUrl/v1/posts/all'));
     // final results = json.decode(response.body) as Map<String, dynamic>;
 
@@ -27,14 +28,15 @@ class ApiClient {
   }
 
   Future<FetchPostResult> fetchPost(String postId) async {
-    final response = await httpClient.get(Uri.parse('$baseUrl/v1/posts/$postId'));
-    final results = json.decode(response.body) as Map<String, dynamic>;
+    return FetchPostResult(post: null);
+    // final response = await httpClient.get(Uri.parse('$baseUrl/v1/posts/$postId'));
+    // final results = json.decode(response.body) as Map<String, dynamic>;
 
-    if (response.statusCode == 200) {
-      return FetchPostResult.fromJson(results);
-    } else {
-      throw FetchError.fromJson(results);
-    }
+    // if (response.statusCode == 200) {
+    //   return FetchPostResult.fromJson(results);
+    // } else {
+    //   throw FetchError.fromJson(results);
+    // }
   }
 
   Future<FetchTopicsResult> fetchTopics() async {

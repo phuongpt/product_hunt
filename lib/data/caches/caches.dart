@@ -1,13 +1,11 @@
-import 'package:product_hunt/data/models/result/result.dart';
-
 class DataCache {
-  // final _cache = <String, FetchPostsResult>{};
+  final _cache = <String, dynamic>{};
 
-  // FetchPostsResult? get(String term) => _cache[term];
+  dynamic get(String id) => _cache[id];
 
-  // void set(String term, FetchPostsResult result) => _cache[term] = result;
+  void set(String id, dynamic item) => _cache[id] = item;
 
-  // bool contains(String term) => _cache.containsKey(term);
+  bool contains(String term) => _cache.containsKey(term);
 
-  // void remove(String term) => _cache.remove(term);
+  void remove(String term) => _cache.remove(term);
 }
