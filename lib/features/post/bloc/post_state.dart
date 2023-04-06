@@ -6,30 +6,38 @@ class PostState extends Equatable {
   const PostState({
     this.status = PostStatus.initial,
     this.items = const <Post>[],
-    this.hasMore = true,
+    this.hasNextPage = true,
+    this.nextPageIndex = '',
+    this.itemsPerPage = 10,
   });
 
   final PostStatus status;
   final List<Post> items;
-  final bool hasMore;
+  final bool hasNextPage;
+  final String nextPageIndex;
+  final int itemsPerPage;
 
   PostState copyWith({
     PostStatus? status,
     List<Post>? items,
-    bool? hasMore,
+    bool? hasNextPage,
+    String? nextPageIndex,
+    int? itemsPerPage,
   }) {
     return PostState(
       status: status ?? this.status,
       items: items ?? this.items,
-      hasMore: hasMore ?? this.hasMore,
+      hasNextPage: hasNextPage ?? this.hasNextPage,
+      nextPageIndex: nextPageIndex ?? this.nextPageIndex,
+      itemsPerPage: itemsPerPage ?? this.itemsPerPage,
     );
   }
 
   @override
   String toString() {
-    return '''PostState { status: $status, hasMore: $hasMore, items: ${items.length} }''';
+    return '''PostState { status: $status, items: ${items.length}, hasNextPage: $hasNextPage, nextPageIndex: $nextPageIndex, itemsPerPage: $itemsPerPage}''';
   }
 
   @override
-  List<Object> get props => [status, items, hasMore];
+  List<Object> get props => [status, items, hasNextPage];
 }

@@ -12,9 +12,15 @@ class PostDetailCubit extends Cubit<PostDetailState> {
 
   Future<void> fetchData(String id) async {
     try {
-      final item = await repository.fetchPost(id);
+      final item = await repository.fetchPost(postId: id, refresh: false);
       if (item != null) {
         emit(PostDetailState.success(item));
+
+        //Lazy get comments
+        final itemWithComments = await repository.fetchPost(postId: id, refresh: true);
+        if (itemWithComments != null) {
+          emit(PostDetailState.update(itemWithComments));
+        }
       } else {
         emit(const PostDetailState.failure());
       }

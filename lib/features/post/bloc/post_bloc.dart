@@ -20,33 +20,20 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     PostFetched event,
     Emitter<PostState> emit,
   ) async {
-    if (!state.hasMore || state.status == PostStatus.loading) return;
+    if (!state.hasNextPage || state.status == PostStatus.loading) return;
 
     try {
-      if (state.status == PostStatus.initial) {
-        final items = await repository.fetchPosts();
-        return emit(
-          state.copyWith(
-            status: PostStatus.success,
-            items: items,
-            hasMore: true,
-          ),
-        );
-      } else {
-        emit(state.copyWith(status: PostStatus.loading));
+      emit(state.copyWith(status: state.status == PostStatus.initial ? PostStatus.initial : PostStatus.loading));
 
-        //  final items = await repository.fetchPosts();
-        final items = <Post>[];
-        items.isEmpty
-            ? emit(state.copyWith(hasMore: false, status: PostStatus.success))
-            : emit(
-                state.copyWith(
-                  status: PostStatus.success,
-                  items: List.of(state.items)..addAll(items),
-                  hasMore: true,
-                ),
-              );
-      }
+      final result = await repository.fetchPosts(pageIndex: state.nextPageIndex, itemsPerPage: state.itemsPerPage);
+      emit(
+        state.copyWith(
+          status: PostStatus.success,
+          items: List.of(state.items)..addAll(result.posts),
+          hasNextPage: result.hasNextPage,
+          nextPageIndex: result.nextPageIndex,
+        ),
+      );
     } catch (_) {
       print(_);
       emit(state.copyWith(status: PostStatus.failure));

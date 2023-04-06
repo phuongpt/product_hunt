@@ -61,6 +61,8 @@ class PostDetailView extends StatelessWidget {
               return const ListLoadingFail();
             case Status.success:
               return PostDetailWidget(item: state.item!);
+            case Status.update:
+              return PostDetailWidget(item: state.item!);
             case Status.loading:
               return const Center(child: CircularProgressIndicator());
           }

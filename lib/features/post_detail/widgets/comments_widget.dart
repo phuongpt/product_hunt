@@ -75,11 +75,11 @@ class _CommentItemState extends State<_CommentItem> {
               style: TextStyles.defaultStyle,
             ),
           ),
-          if (widget.comment.childComments.isNotEmpty)
+          if (widget.comment.replies.isNotEmpty)
             Column(
               children: [
                 if (_expanded)
-                  for (var childComment in widget.comment.childComments)
+                  for (var childComment in widget.comment.replies)
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: kMinPadding),
                       child: _CommentItem(comment: childComment),
@@ -90,7 +90,7 @@ class _CommentItemState extends State<_CommentItem> {
                     TextButton(
                       onPressed: () => {},
                       child: Text(
-                        '${widget.comment.votes} votes',
+                        '${widget.comment.votesCount} votes',
                         style: TextStyles.defaultStyle.subTitleColor,
                       ),
                     ),

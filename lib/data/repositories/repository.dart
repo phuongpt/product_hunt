@@ -13,25 +13,26 @@ class Repository {
   final ApiClient _client;
   final DataCache _cache;
 
-  Future<List<Post>> fetchPosts() async {
-    final result = await _client.fetchPosts();
+  Future<FetchPostsResult> fetchPosts({required String pageIndex, required int itemsPerPage}) async {
+    final result = await _client.fetchPosts(pageIndex, itemsPerPage);
     final posts = result.posts;
-    _cache.set('posts', posts);
-    return posts;
+    _cache.set('posts', [...posts, ...?_cache.get('posts') as List<Post>?]);
+    return result;
   }
 
-  Future<Post?> fetchPost(String postId) async {
+  Future<Post?> fetchPost({required String postId, required bool refresh}) async {
+    if (refresh) {
+      final result = await _client.fetchPost(postId);
+      return result.post;
+    }
+
     final cachedResult = _cache.get('posts');
     if (cachedResult != null) {
       final posts = cachedResult as List<Post>;
-      final post = posts.firstWhereOrNull((post) => post.id == postId && post.comments != null);
-      if (post != null) {
-        return post;
-      }
+      return posts.firstWhereOrNull((post) => post.id == postId);
     }
 
-    final result = await _client.fetchPost(postId);
-    return result.post;
+    return null;
   }
 
   Future<FetchTopicsResult> fetchTopics() async {

@@ -32,14 +32,15 @@ class Post {
     thumbnail = Thumbnail.fromJson(json['thumbnail'] as Map<String, dynamic>);
     reviewsCount = json['reviewsCount'] as int;
     commentsCount = json['commentsCount'] as int;
-    user = User.fromJson(json['user'] as Map<String, dynamic>);
+    user = User.fromJson({});
     media = json['media'] != null ? List.from(json['media'] as Iterable<dynamic>).map((e) => Media.fromJson(e as Map<String, dynamic>)).toList() : [];
     topics = List.from(json['topics']['edges'] as Iterable<dynamic>).map((e) => Topic.fromJson(e['node'] as Map<String, dynamic>)).toList();
 
     discussionUrl = json['discussionUrl'] as String?;
     featured = json['featured'] as bool?;
-    comments =
-        json['comments'] != null ? List.from(json['comments'] as Iterable<dynamic>).map((e) => Comment.fromJson(e as Map<String, dynamic>)).toList() : null;
+    comments = json['comments'] != null
+        ? List.from(json['comments'] as Iterable<dynamic>).map((e) => Comment.fromJson(e['node'] as Map<String, dynamic>)).toList()
+        : null;
     installLinks = json['installLinks'] != null
         ? List.from(json['installLinks'] as Iterable<dynamic>).map((e) => InstallLinks.fromJson(e as Map<String, dynamic>)).toList()
         : [];
