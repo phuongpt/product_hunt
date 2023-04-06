@@ -5,16 +5,15 @@ class FetchPostsResult {
     required this.posts,
   });
 
-  FetchPostsResult.fromJson(Map<String, dynamic> json) {
-    if (json['posts'] != null) {
-      posts = List.from(json['posts'] as Iterable).map((e) => Post.fromJson(e as Map<String, dynamic>)).toList();
+  FetchPostsResult.fromJson(Map<String, dynamic>? json) {
+    if (json?['posts']['edges'] != null) {
+      posts = List.from(json?['posts']['edges'] as Iterable).map((e) => Post.fromJson(e['node'] as Map<String, dynamic>)).toList();
     }
   }
   late final List<Post> posts;
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
-    data['posts'] = posts.map((e) => e.toJson()).toList();
     return data;
   }
 }

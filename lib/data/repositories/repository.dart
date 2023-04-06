@@ -1,12 +1,13 @@
 import 'dart:async';
 
+import 'package:product_hunt/core/extensions/iterable_extension.dart';
 import 'package:product_hunt/data/apis/api_client.dart';
 import 'package:product_hunt/data/caches/caches.dart';
 import 'package:product_hunt/data/models/models.dart';
 
 class Repository {
   Repository({ApiClient? client, DataCache? cache})
-      : _client = client ?? ApiClient(),
+      : _client = client ?? ApiClient.create(),
         _cache = cache ?? DataCache();
 
   final ApiClient _client;
@@ -23,7 +24,10 @@ class Repository {
     final cachedResult = _cache.get('posts');
     if (cachedResult != null) {
       final posts = cachedResult as List<Post>;
-      return posts.firstWhere((post) => post.id.toString() == postId);
+      final post = posts.firstWhereOrNull((post) => post.id == postId && post.comments != null);
+      if (post != null) {
+        return post;
+      }
     }
 
     final result = await _client.fetchPost(postId);

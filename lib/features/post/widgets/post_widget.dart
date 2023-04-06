@@ -115,7 +115,7 @@ class PostListItem extends StatelessWidget {
       child: ListTile(
         onTap: () => Navigator.of(context).pushNamed('/post-detail/${item.id}'),
         leading: Image.network(
-          item.thumbnail.imageUrl,
+          item.thumbnail.url,
           fit: BoxFit.contain,
         ),
         title: Text(item.name, style: TextStyles.defaultStyle.fontTitle),

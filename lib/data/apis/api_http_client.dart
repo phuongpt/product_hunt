@@ -1,28 +1,27 @@
-import 'package:graphql/client.dart';
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
 import 'package:product_hunt/core/constants/keys.dart';
 import 'package:product_hunt/data/models/models.dart';
 
-class ApiClient {
-  const ApiClient({required GraphQLClient graphQLClient}) : _graphQLClient = graphQLClient;
+class ApiHttpClient {
+  ApiHttpClient({
+    http.Client? httpClient,
+    this.baseUrl = 'https://api.producthunt.com',
+    this.headers = const {
+      'Content-type': 'application/json',
+      'Authorization': 'Bearer $productHuntToken',
+    },
+  }) : httpClient = httpClient ?? http.Client();
 
-  factory ApiClient.create() {
-    final httpLink = HttpLink('https://api.producthunt.com/v2/api/graphql');
-    final authLink = AuthLink(
-      getToken: () async => 'Bearer $productHuntToken',
-    );
-    final link = authLink.concat(httpLink);
-
-    return ApiClient(
-      graphQLClient: GraphQLClient(cache: GraphQLCache(), link: link),
-    );
-  }
-
-  final GraphQLClient _graphQLClient;
+  late String baseUrl;
+  final Map<String, String> headers;
+  final http.Client httpClient;
 
   Future<FetchPostsResult> fetchPosts() async {
     const query = '''
       query {
-        posts(order:RANKING,first:10) {
+        posts(order:RANKING,first:5) {
           edges {
             node {
               id
@@ -63,11 +62,20 @@ class ApiClient {
       }
     ''';
 
-    final result = await _graphQLClient.query(
-      QueryOptions(document: gql(query)),
+    final body = <String, dynamic>{'query': query};
+
+    final response = await http.post(
+      Uri.parse('$baseUrl/v2/api/graphql'),
+      headers: headers,
+      body: json.encode(body),
     );
-    if (result.hasException) throw FetchError.exception(result.exception);
-    return FetchPostsResult.fromJson(result.data);
+
+    final results = json.decode(response.body) as Map<String, dynamic>;
+    if (response.statusCode == 200) {
+      return FetchPostsResult.fromJson(results['data'] as Map<String, dynamic>);
+    } else {
+      throw FetchError.fromJson(results);
+    }
   }
 
   Future<FetchPostResult> fetchPost(String postId) async {

@@ -8,8 +8,8 @@ import 'package:sizer/sizer.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 class CommentsWidget extends StatelessWidget {
-  const CommentsWidget({super.key, required this.comments});
-  final List<Comment> comments;
+  const CommentsWidget({super.key, required this.items});
+  final List<Comment>? items;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,8 @@ class CommentsWidget extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: kMaxPadding),
       child: Column(
         children: [
-          for (var comment in comments) _CommentItem(comment: comment),
+          if (items != null)
+            for (var comment in items!) _CommentItem(comment: comment),
         ],
       ),
     );

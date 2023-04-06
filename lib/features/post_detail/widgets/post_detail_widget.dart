@@ -5,6 +5,7 @@ import 'package:product_hunt/data/models/models.dart';
 import 'package:product_hunt/features/post_detail/widgets/widgets.dart';
 import 'package:sizer/sizer.dart';
 import 'package:styled_widget/styled_widget.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class PostDetailWidget extends StatelessWidget {
   const PostDetailWidget({
@@ -20,11 +21,11 @@ class PostDetailWidget extends StatelessWidget {
       child: Column(
         children: [
           PostDetailHeader(item: item),
-          SliderImages(item: item.screenshots),
+          SliderImages(items: item.media),
           const Buttons(),
-          DescriptionLine(text: item.description, date: item.day),
+          DescriptionLine(text: item.description, date: item.createdAt),
           TopicsLine(topics: item.topics),
-          CommentsWidget(comments: item.comments)
+          CommentsWidget(items: item.comments)
         ],
       ),
     );
@@ -136,10 +137,10 @@ class Buttons extends StatelessWidget {
 class SliderImages extends StatelessWidget {
   const SliderImages({
     super.key,
-    required this.item,
+    required this.items,
   });
 
-  final Screenshots item;
+  final List<Media> items;
 
   @override
   Widget build(BuildContext context) {
@@ -147,21 +148,18 @@ class SliderImages extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       height: 30.0.h,
       margin: const EdgeInsets.symmetric(vertical: kDefaultPadding),
-      child: Image.network(
-        item.s850px!,
-        fit: BoxFit.cover,
-        errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-          return const Text('Image not available');
-        },
-        loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-          if (loadingProgress == null) return child;
-
-          return Center(
-            child: CircularProgressIndicator(
-              value: loadingProgress.expectedTotalBytes != null ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes! : null,
-            ),
+      child: CarouselSlider(
+        options: CarouselOptions(),
+        items: items.map((item) {
+          return Builder(
+            builder: (BuildContext context) {
+              return Image.network(
+                item.url,
+                fit: BoxFit.cover,
+              );
+            },
           );
-        },
+        }).toList(),
       ),
     );
   }
@@ -177,7 +175,7 @@ class PostDetailHeader extends StatelessWidget {
     return Styled.widget(
       child: ListTile(
         leading: Image.network(
-          item.thumbnail.imageUrl,
+          item.thumbnail.url,
           fit: BoxFit.contain,
         ),
         title: Text(item.name, style: TextStyles.defaultStyle.fontTitle),

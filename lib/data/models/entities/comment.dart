@@ -19,32 +19,32 @@ class Comment {
   });
 
   Comment.fromJson(Map<String, dynamic> json) {
-    id = json['id'] as int;
+    id = json['id'] as String;
     body = json['body'] as String;
     createdAt = DateTime.parse(json['created_at'] as String);
-    parentCommentId = json['parentCommentId'] as int?;
-    userId = json['user_id'] as int;
-    subjectId = json['subject_id'] as int;
-    childCommentsCount = json['child_comments_count'] as int;
+    parentCommentId = json['parentCommentId'] as String?;
+    userId = json['user_id'] as String;
+    subjectId = json['subject_id'] as String;
+    childCommentsCount = json['child_comments_count'] as String;
     url = json['url'] as String;
     subjectType = json['subject_type'] as String;
     sticky = json['sticky'] as bool;
-    votes = json['votes'] as int;
+    votes = json['votes'] as String;
     user = User.fromJson(json['user'] as Map<String, dynamic>);
     childComments = List.from(json['child_comments'] as Iterable).map((e) => Comment.fromJson(e as Map<String, dynamic>)).toList();
   }
-  late final int id;
+  late final String id;
   late final String body;
   late final DateTime createdAt;
-  late final int? parentCommentId;
-  late final int userId;
-  late final int subjectId;
-  late final int childCommentsCount;
+  late final String? parentCommentId;
+  late final String userId;
+  late final String subjectId;
+  late final String childCommentsCount;
   late final String url;
-  late final int postId;
+  late final String postId;
   late final String subjectType;
   late final bool sticky;
-  late final int votes;
+  late final String votes;
   late final User user;
   late final List<Comment> childComments;
 
