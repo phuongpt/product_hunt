@@ -39,5 +39,5 @@ class PostState extends Equatable {
   }
 
   @override
-  List<Object> get props => [status, items, hasNextPage];
+  List<Object> get props => [status, hasNextPage, nextPageIndex];
 }

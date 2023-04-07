@@ -7,7 +7,7 @@ class Post {
     required this.tagline,
     required this.slug,
     required this.votesCount,
-    required this.createdAt,
+    required this.featuredAt,
     required this.thumbnail,
     required this.topics,
     required this.description,
@@ -28,7 +28,7 @@ class Post {
     tagline = json['tagline'] as String;
     slug = json['slug'] as String;
     votesCount = json['votesCount'] as int;
-    createdAt = DateTime.parse(json['createdAt'] as String);
+    featuredAt = DateTime.parse(json['featuredAt'] as String);
     thumbnail = Thumbnail.fromJson(json['thumbnail'] as Map<String, dynamic>);
     reviewsCount = json['reviewsCount'] as int;
     commentsCount = json['commentsCount'] as int;
@@ -39,7 +39,7 @@ class Post {
     discussionUrl = json['discussionUrl'] as String?;
     featured = json['featured'] as bool?;
     comments = json['comments'] != null
-        ? List.from(json['comments'] as Iterable<dynamic>).map((e) => Comment.fromJson(e['node'] as Map<String, dynamic>)).toList()
+        ? List.from(json['comments']['edges'] as Iterable<dynamic>).map((e) => Comment.fromJson(e['node'] as Map<String, dynamic>)).toList()
         : null;
     installLinks = json['installLinks'] != null
         ? List.from(json['installLinks'] as Iterable<dynamic>).map((e) => InstallLinks.fromJson(e as Map<String, dynamic>)).toList()
@@ -52,7 +52,7 @@ class Post {
   late final String tagline;
   late final String slug;
   late final int votesCount;
-  late final DateTime createdAt;
+  late final DateTime featuredAt;
   late final Thumbnail thumbnail;
   late final String description;
   late final List<Topic> topics;
@@ -66,10 +66,4 @@ class Post {
   late final List<Comment>? comments;
   late final List<InstallLinks>? installLinks;
   late final List<Media> media;
-
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-
-    return data;
-  }
 }

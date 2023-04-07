@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_lazy_indexed_stack/flutter_lazy_indexed_stack.dart';
 import 'package:product_hunt/app/nav_bar/cubit/nav_bar_cubit.dart';
 import 'package:product_hunt/core/constants/color_palatte.dart';
 import 'package:product_hunt/features/post/post.dart';
@@ -40,12 +41,12 @@ class _BottomNavState extends State<BottomNav> {
                   title: const Text('Home'),
                 ),
                 SalomonBottomBarItem(
-                  icon: const Icon(Icons.tips_and_updates_sharp),
-                  title: const Text('Updates'),
-                ),
-                SalomonBottomBarItem(
                   icon: const Icon(Icons.explore),
                   title: const Text('Topics'),
+                ),
+                SalomonBottomBarItem(
+                  icon: const Icon(Icons.tips_and_updates_sharp),
+                  title: const Text('Updates'),
                 ),
                 SalomonBottomBarItem(
                   icon: const Icon(Icons.search),
@@ -56,7 +57,7 @@ class _BottomNavState extends State<BottomNav> {
             extendBody: true,
             body: BlocBuilder<NavBarCubit, NavBarState>(
               builder: (context, state) {
-                return IndexedStack(
+                return LazyIndexedStack(
                   index: state.currentIndex,
                   children: [
                     const PostPage(),

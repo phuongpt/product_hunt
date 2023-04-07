@@ -1,9 +1,11 @@
+enum DataCacheKey { post, topic }
+
 class DataCache {
-  final _cache = <String, dynamic>{};
+  final _cache = <DataCacheKey, dynamic>{};
 
-  dynamic get(String id) => _cache[id];
+  dynamic get(DataCacheKey id) => _cache[id];
 
-  void set(String id, dynamic item) => _cache[id] = item;
+  void set(DataCacheKey id, dynamic item) => _cache[id] = item;
 
   bool contains(String term) => _cache.containsKey(term);
 

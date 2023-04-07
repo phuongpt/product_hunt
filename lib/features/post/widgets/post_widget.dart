@@ -6,6 +6,7 @@ import 'package:product_hunt/features/post/post.dart';
 import 'package:product_hunt/features/shared/shared.dart';
 import 'package:sizer/sizer.dart';
 import 'package:styled_widget/styled_widget.dart';
+import 'package:animate_do/animate_do.dart';
 
 class PostWidget extends StatefulWidget {
   const PostWidget({
@@ -34,7 +35,7 @@ class _PostWidgetState extends State<PostWidget> {
           slivers: <Widget>[
             SliverList(
               delegate: SliverChildListDelegate([
-                const Header(),
+                const Header(title: 'Ranking'),
               ]),
             ),
             SliverList(
@@ -76,7 +77,6 @@ class _PostWidgetState extends State<PostWidget> {
   }
 
   void _onScroll() {
-    print('_onScroll: ' + _isBottom.toString());
     if (_isBottom) context.read<PostBloc>().add(PostFetched());
   }
 
@@ -85,22 +85,6 @@ class _PostWidgetState extends State<PostWidget> {
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.offset;
     return currentScroll >= (maxScroll * 0.9);
-  }
-}
-
-class Header extends StatelessWidget {
-  const Header({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Styled.text(
-      'Product List',
-      overflow: TextOverflow.ellipsis,
-      textAlign: TextAlign.left,
-      style: TextStyles.defaultStyle.fontHeader,
-    ).padding(bottom: kMaxPadding, horizontal: kDefaultPadding, top: kMinPadding);
   }
 }
 
@@ -114,10 +98,7 @@ class PostListItem extends StatelessWidget {
     return Styled.widget(
       child: ListTile(
         onTap: () => Navigator.of(context).pushNamed('/post-detail/${item.id}'),
-        leading: Image.network(
-          item.thumbnail.url,
-          fit: BoxFit.contain,
-        ),
+        leading: ImageView(url: item.thumbnail.url, width: 15.0.w),
         title: Text(item.name, style: TextStyles.defaultStyle.fontTitle),
         subtitle: Styled.widget(
           child: Text(
@@ -126,20 +107,22 @@ class PostListItem extends StatelessWidget {
             maxLines: 2,
           ),
         ).padding(top: kMinPadding),
-        trailing: InkWell(
-          onTap: () {},
-          child: Column(
-            children: [
-              Icon(
-                Icons.arrow_drop_up_outlined,
-                size: 30.sp,
-                color: ColorPalette.backgroundColorReverse,
-              ),
-              Text(
-                item.votesCount.toString(),
-                style: TextStyles.defaultStyle.bold.lightTextColor,
-              ),
-            ],
+        trailing: SlideInUp(
+          child: InkWell(
+            onTap: () {},
+            child: Column(
+              children: [
+                Icon(
+                  Icons.arrow_drop_up_outlined,
+                  size: 30.sp,
+                  color: ColorPalette.backgroundColorReverse,
+                ),
+                Text(
+                  item.votesCount.toString(),
+                  style: TextStyles.defaultStyle.bold.lightTextColor,
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -13,14 +13,6 @@ class Badges {
   late final String id;
   late final String type;
   late final Data data;
-
-  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['id'] = id;
-    _data['type'] = type;
-    _data['data'] = data.toJson();
-    return _data;
-  }
 }
 
 class Data {
@@ -38,12 +30,4 @@ class Data {
   late final String date;
   late final String period;
   late final String position;
-
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['date'] = date;
-    data['period'] = period;
-    data['position'] = position;
-    return data;
-  }
 }

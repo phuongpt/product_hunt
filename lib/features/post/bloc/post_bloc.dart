@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -10,9 +11,7 @@ part 'post_state.dart';
 
 class PostBloc extends Bloc<PostEvent, PostState> {
   PostBloc({required this.repository}) : super(const PostState()) {
-    on<PostFetched>(
-      _onFetchData,
-    );
+    on<PostFetched>(_onFetchData);
   }
   final Repository repository;
 
@@ -35,7 +34,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
         ),
       );
     } catch (_) {
-      print(_);
+      log('_onFetchData', name: 'PostBloc', error: _);
       emit(state.copyWith(status: PostStatus.failure));
     }
   }

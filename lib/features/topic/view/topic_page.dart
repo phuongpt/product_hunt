@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:product_hunt/core/constants/color_palatte.dart';
+import 'package:product_hunt/data/repositories/repository.dart';
 import 'package:product_hunt/features/topic/topic.dart';
+import 'package:product_hunt/features/topic/widgets/widgets.dart';
 import 'package:product_hunt/l10n/l10n.dart';
 
 class TopicPage extends StatelessWidget {
@@ -8,8 +11,9 @@ class TopicPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("TopicPage rendering...");
     return BlocProvider(
-      create: (_) => TopicBloc(),
+      create: (_) => TopicBloc(repository: context.read<Repository>())..add(TopicFetched()),
       child: const TopicView(),
     );
   }
@@ -24,6 +28,7 @@ class TopicView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Topics'),
+        backgroundColor: ColorPalette.backgroundScaffoldColor,
         elevation: 0,
         leading: IconButton(
           onPressed: () {},
@@ -42,7 +47,8 @@ class TopicView extends StatelessWidget {
           )
         ],
       ),
-      body: const Center(),
+      backgroundColor: ColorPalette.backgroundScaffoldColor,
+      body: const TopicWidget(),
     );
   }
 }

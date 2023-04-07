@@ -5,7 +5,7 @@ class Comment {
     required this.id,
     required this.body,
     required this.createdAt,
-    required this.childCommentsCount,
+    required this.repliesCount,
     required this.votesCount,
     required this.user,
     required this.replies,
@@ -18,17 +18,17 @@ class Comment {
     votesCount = json['votesCount'] as int;
     user = User.fromJson({});
     if (json['replies'] != null) {
-      childCommentsCount = json['replies']?['totalCount'] as int;
+      repliesCount = json['replies']?['totalCount'] as int;
       replies = List.from(json['replies']['edges'] as Iterable<dynamic>).map((e) => Comment.fromJson(e['node'] as Map<String, dynamic>)).toList();
     } else {
-      childCommentsCount = 0;
+      repliesCount = 0;
       replies = [];
     }
   }
   late final String id;
   late final String body;
   late final DateTime createdAt;
-  late final int childCommentsCount;
+  late final int repliesCount;
   late final int votesCount;
   late final User user;
   late final List<Comment> replies;

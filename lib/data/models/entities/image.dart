@@ -7,10 +7,4 @@ class Thumbnail {
     url = json['url'] as String;
   }
   late final String url;
-
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['url'] = url;
-    return data;
-  }
 }

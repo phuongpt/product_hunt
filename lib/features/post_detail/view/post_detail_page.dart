@@ -7,16 +7,15 @@ import 'package:product_hunt/features/shared/shared.dart';
 import 'package:product_hunt/l10n/l10n.dart';
 
 class PostDetailPage extends StatelessWidget {
-  const PostDetailPage({
-    super.key,
-    this.id = '',
-  });
+  const PostDetailPage({super.key, this.id = ''});
 
   static const String routerName = '/post-detail';
   final String id;
 
   @override
   Widget build(BuildContext context) {
+    print("PostDetailPage rendering...");
+
     return BlocProvider(
       create: (_) => PostDetailCubit(repository: context.read<Repository>())..fetchData(id),
       child: const PostDetailView(),

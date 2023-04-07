@@ -6,3 +6,14 @@ abstract class TopicEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class TopicFetched extends TopicEvent {}
+
+class TopicFollowUpdated extends TopicEvent {
+  const TopicFollowUpdated(this.item);
+
+  final Topic item;
+
+  @override
+  List<Object> get props => [item];
+}

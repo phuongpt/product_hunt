@@ -7,10 +7,4 @@ class User {
     id = json?['id'] as String? ?? "";
   }
   late final String id;
-
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['id'] = id;
-    return data;
-  }
 }

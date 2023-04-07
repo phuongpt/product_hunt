@@ -19,30 +19,22 @@ class CommentsWidget extends StatelessWidget {
       child: Column(
         children: [
           if (items != null)
-            for (var comment in items!) _CommentItem(comment: comment),
+            for (var comment in items!) CommentItem(comment: comment),
         ],
       ),
     );
   }
 }
 
-class _CommentItem extends StatefulWidget {
-  const _CommentItem({required this.comment});
+class CommentItem extends StatefulWidget {
+  const CommentItem({super.key, required this.comment});
   final Comment comment;
 
   @override
-  State<_CommentItem> createState() => _CommentItemState();
+  State<CommentItem> createState() => _CommentItemState();
 }
 
-class _CommentItemState extends State<_CommentItem> {
-  bool _expanded = false;
-
-  void _toggleExpansion() {
-    setState(() {
-      _expanded = !_expanded;
-    });
-  }
-
+class _CommentItemState extends State<CommentItem> {
   @override
   Widget build(BuildContext context) {
     final randomNames = RandomNames(Zone.us);
@@ -51,23 +43,22 @@ class _CommentItemState extends State<_CommentItem> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Styled.widget(
-            child: ListTile(
-              leading: RandomAvatar(
-                DateTime.now().toIso8601String(),
-                height: 30.sp,
-                width: 30.sp,
-              ),
-              title: Text(randomNames.fullName(), style: TextStyles.defaultStyle.bold),
-              subtitle: Styled.widget(
-                child: Text(
-                  DateTimeHelper.timeFromNow(widget.comment.createdAt),
-                  style: TextStyles.defaultStyle.fontCaption.subTitleColor,
-                  maxLines: 2,
-                ),
-              ).padding(top: kMinPadding),
+          //Gennerate random avatars and names due to API doesn't return properly values
+          ListTile(
+            leading: RandomAvatar(
+              widget.comment.id,
+              height: 30.sp,
+              width: 30.sp,
             ),
-          ).padding(vertical: 0).backgroundColor(ColorPalette.backgroundColor),
+            title: Text(randomNames.fullName(), style: TextStyles.defaultStyle.bold),
+            subtitle: Styled.widget(
+              child: Text(
+                DateTimeHelper.timeFromNow(widget.comment.createdAt),
+                style: TextStyles.defaultStyle.fontCaption.subTitleColor,
+                maxLines: 2,
+              ),
+            ).padding(top: kMinPadding),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
             child: Text(
@@ -75,38 +66,61 @@ class _CommentItemState extends State<_CommentItem> {
               style: TextStyles.defaultStyle,
             ),
           ),
-          if (widget.comment.replies.isNotEmpty)
-            Column(
-              children: [
-                if (_expanded)
-                  for (var childComment in widget.comment.replies)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: kMinPadding),
-                      child: _CommentItem(comment: childComment),
-                    ),
-                Row(
-                  children: [
-                    const SizedBox(width: 8),
-                    TextButton(
-                      onPressed: () => {},
-                      child: Text(
-                        '${widget.comment.votesCount} votes',
-                        style: TextStyles.defaultStyle.subTitleColor,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: _toggleExpansion,
-                      child: Text(
-                        _expanded ? 'Hide replies' : '${widget.comment.childCommentsCount} replies',
-                        style: TextStyles.defaultStyle.subTitleColor,
-                      ),
-                    )
-                  ],
-                ),
-              ],
-            ),
+          Replies(comment: widget.comment),
         ],
       ),
+    );
+  }
+}
+
+class Replies extends StatefulWidget {
+  const Replies({super.key, required this.comment});
+  final Comment comment;
+
+  @override
+  State<Replies> createState() => _RepliesState();
+}
+
+class _RepliesState extends State<Replies> {
+  bool _expanded = false;
+  void _toggleExpansion() {
+    setState(() {
+      _expanded = !_expanded;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        if (_expanded)
+          for (var reply in widget.comment.replies)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: kMinPadding),
+              child: Styled.widget(child: CommentItem(comment: reply)).backgroundColor(ColorPalette.backgroundColor).opacity(0.7).padding(left: kMinPadding),
+            ),
+        Row(
+          children: [
+            const SizedBox(width: 8),
+            if (widget.comment.votesCount > 0)
+              TextButton(
+                onPressed: () => {},
+                child: Text(
+                  '${widget.comment.votesCount} votes',
+                  style: TextStyles.defaultStyle.subTitleColor,
+                ),
+              ),
+            if (widget.comment.repliesCount > 0)
+              TextButton(
+                onPressed: _toggleExpansion,
+                child: Text(
+                  _expanded ? 'Hide replies' : '${widget.comment.repliesCount} replies',
+                  style: TextStyles.defaultStyle.subTitleColor,
+                ),
+              )
+          ],
+        ),
+      ],
     );
   }
 }

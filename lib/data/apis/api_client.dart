@@ -30,17 +30,35 @@ class ApiClient {
     return FetchPostsResult.fromJson(result.data);
   }
 
-  Future<FetchPostResult> fetchPost(String id) async {
+  Future<FetchPostDetailResult> fetchPostDetail(String id) async {
     final variables = <String, dynamic>{'id': id};
 
     final result = await _graphQLClient.query(
-      QueryOptions(document: gql(queries.getPost), variables: variables),
+      QueryOptions(document: gql(queries.getPostDetail), variables: variables),
     );
     if (result.hasException) throw FetchError.exception(result.exception);
-    return FetchPostResult.fromJson(result.data);
+    return FetchPostDetailResult.fromJson(result.data);
   }
 
-  Future<FetchTopicsResult> fetchTopics() async {
-    return FetchTopicsResult(topics: []);
+  Future<FetchTopicsResult> getTrendingTopics() async {
+    final variables = <String, dynamic>{};
+
+    final result = await _graphQLClient.query(
+      QueryOptions(document: gql(queries.getTrendingTopics), variables: variables),
+    );
+    if (result.hasException) throw FetchError.exception(result.exception);
+    return FetchTopicsResult.fromJson(result.data);
   }
+
+  Future<FetchTopicsResult> getPopularTopics() async {
+    final variables = <String, dynamic>{};
+
+    final result = await _graphQLClient.query(
+      QueryOptions(document: gql(queries.getPopularTopics), variables: variables),
+    );
+    if (result.hasException) throw FetchError.exception(result.exception);
+    return FetchTopicsResult.fromJson(result.data);
+  }
+
+  Future<void> updateFollowingTopic({required String topicId, required bool follow}) async {}
 }

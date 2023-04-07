@@ -13,12 +13,4 @@ class Media {
   late final String url;
   late final String type;
   late final String? videoUrl;
-
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['url'] = url;
-    data['type'] = type;
-    data['videoUrl'] = videoUrl;
-    return data;
-  }
 }

@@ -9,14 +9,11 @@ class FetchPostsResult {
 
       hasNextPage = json?['posts']['pageInfo']['hasNextPage'] as bool;
       nextPageIndex = json?['posts']['pageInfo']['endCursor'] as String;
+    } else {
+      posts = [];
     }
   }
   late final List<Post> posts;
   late final bool hasNextPage;
   late final String nextPageIndex;
-
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    return data;
-  }
 }

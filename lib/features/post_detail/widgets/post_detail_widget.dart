@@ -1,18 +1,15 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:product_hunt/core/constants/constants.dart';
 import 'package:product_hunt/data/models/models.dart';
 import 'package:product_hunt/features/post_detail/widgets/widgets.dart';
+import 'package:product_hunt/features/shared/image/image.dart';
 import 'package:sizer/sizer.dart';
 import 'package:styled_widget/styled_widget.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 class PostDetailWidget extends StatelessWidget {
-  const PostDetailWidget({
-    super.key,
-    required this.item,
-  });
-
+  const PostDetailWidget({super.key, required this.item});
   final Post item;
 
   @override
@@ -23,7 +20,7 @@ class PostDetailWidget extends StatelessWidget {
           PostDetailHeader(item: item),
           SliderImages(items: item.media),
           const Buttons(),
-          DescriptionLine(text: item.description, date: item.createdAt),
+          DescriptionLine(text: item.description, date: item.featuredAt),
           TopicsLine(topics: item.topics),
           CommentsWidget(items: item.comments)
         ],
@@ -33,12 +30,9 @@ class PostDetailWidget extends StatelessWidget {
 }
 
 class TopicsLine extends StatelessWidget {
-  const TopicsLine({
-    super.key,
-    required this.topics,
-  });
-
+  const TopicsLine({super.key, required this.topics});
   final List<Topic> topics;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -67,12 +61,7 @@ class TopicsLine extends StatelessWidget {
 }
 
 class DescriptionLine extends StatelessWidget {
-  const DescriptionLine({
-    super.key,
-    required this.text,
-    required this.date,
-  });
-
+  const DescriptionLine({super.key, required this.text, required this.date});
   final String text;
   final DateTime date;
 
@@ -99,9 +88,7 @@ class DescriptionLine extends StatelessWidget {
 }
 
 class Buttons extends StatelessWidget {
-  const Buttons({
-    super.key,
-  });
+  const Buttons({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -135,11 +122,7 @@ class Buttons extends StatelessWidget {
 }
 
 class SliderImages extends StatelessWidget {
-  const SliderImages({
-    super.key,
-    required this.items,
-  });
-
+  const SliderImages({super.key, required this.items});
   final List<Media> items;
 
   @override
@@ -153,9 +136,12 @@ class SliderImages extends StatelessWidget {
         items: items.map((item) {
           return Builder(
             builder: (BuildContext context) {
-              return Image.network(
-                item.url,
-                fit: BoxFit.cover,
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: kMinPadding),
+                child: ImageView(
+                  url: item.url,
+                  width: 90.0.w,
+                ),
               );
             },
           );

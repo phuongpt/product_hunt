@@ -22,15 +22,4 @@ class InstallLinks {
   late final bool primaryLink;
   late final String websiteName;
   late final String redirectUrl;
-
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['id'] = id;
-    data['post_id'] = postId;
-    data['created_at'] = createdAt;
-    data['primary_link'] = primaryLink;
-    data['website_name'] = websiteName;
-    data['redirect_url'] = redirectUrl;
-    return data;
-  }
 }
