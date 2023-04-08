@@ -40,7 +40,7 @@ class TopicWidget extends StatelessWidget {
               );
             },
           ),
-          const SizedBox(height: kMaxPadding),
+          const SizedBox(height: kDefaultPadding),
           const Header(title: 'Popular Topics'),
           BlocBuilder<TopicBloc, TopicState>(
             builder: (context, state) {
@@ -82,7 +82,7 @@ class TopicListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Styled.widget(
       child: ListTile(
-        onTap: () => Navigator.of(context).pushNamed('/topic-detail/${item.id}'),
+        onTap: () => Navigator.of(context).pushNamed('/topic-detail/${item.slug}'),
         title: SlideInLeft(child: Text(item.name, style: TextStyles.defaultStyle.fontTitle)),
         subtitle: SlideInLeft(
           child: Styled.widget(

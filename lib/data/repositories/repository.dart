@@ -15,22 +15,22 @@ class Repository {
 
   //Posts
   Future<FetchPostsResult> fetchPosts({required String pageIndex, required int itemsPerPage}) async {
-    final result = await _client.fetchPosts(pageIndex, itemsPerPage);
+    final result = await _client.fetchPosts(pageIndex: pageIndex, itemsPerPage: itemsPerPage);
     final posts = result.posts;
     _cache.set(DataCacheKey.post, [...posts, ...?_cache.get(DataCacheKey.post) as List<Post>?]);
     return result;
   }
 
-  Future<Post?> fetchPostDetail({required String postId, required bool refresh}) async {
+  Future<Post?> fetchPostDetail({required String slug, required bool refresh}) async {
     if (refresh) {
-      final result = await _client.fetchPostDetail(postId);
+      final result = await _client.fetchPostDetail(slug);
       return result.post;
     }
 
     final cachedResult = _cache.get(DataCacheKey.post);
     if (cachedResult != null) {
       final posts = cachedResult as List<Post>;
-      return posts.firstWhereOrNull((post) => post.id == postId);
+      return posts.firstWhereOrNull((post) => post.slug == slug);
     }
 
     return null;
@@ -53,5 +53,27 @@ class Repository {
 
   Future<void> updateFollowingTopic({required String topicId, required bool follow}) async {
     await _client.updateFollowingTopic(topicId: topicId, follow: follow);
+  }
+
+  Future<SearchTopicsResult> searchTopics({required String searchTerm, required String pageIndex, required int itemsPerPage}) async {
+    final result = await _client.searchTopics(searchTerm: searchTerm, pageIndex: pageIndex, itemsPerPage: itemsPerPage);
+    final topics = result.topics;
+    _cache.set(DataCacheKey.topic, [...topics, ...?_cache.get(DataCacheKey.topic) as List<Topic>?]);
+    return result;
+  }
+
+  Future<Topic?> fetchTopicDetail({required String slug, required bool refresh}) async {
+    if (refresh) {
+      final result = await _client.fetchTopicDetail(slug);
+      return result.post;
+    }
+
+    final cachedResult = _cache.get(DataCacheKey.topic);
+    if (cachedResult != null) {
+      final topics = cachedResult as List<Topic>;
+      return topics.firstWhereOrNull((topic) => topic.slug == slug);
+    }
+
+    return null;
   }
 }

@@ -45,8 +45,8 @@ String getPosts = r'''
   ''';
 
 String getPostDetail = r'''
-    query GetPostDetail($id: ID!) {
-       post(id: $id) {
+    query GetPostDetail($slug: String) {
+       post(slug: $slug) {
         id
         name
         tagline
@@ -96,4 +96,51 @@ String getPostDetail = r'''
         }
       }
     }
+  ''';
+
+String getPostsByTopic = r'''
+  query getPostsByTopic($topicSlug: String!, $first: Int!, $after: String) {
+    posts(topic: $topicSlug, first: $first, after: $after) {
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+      edges {
+        cursor
+        node {
+          id
+          name
+          tagline
+          slug
+          votesCount
+          featuredAt
+          thumbnail {
+            url
+          }
+          reviewsCount
+          commentsCount
+          topics {
+            edges {
+              node {
+                name
+                slug
+                id
+              }
+            }
+          }
+          user {
+            headline
+            id,
+            name
+          }
+          description
+          media{
+            url
+            type
+            videoUrl
+          }
+        }
+      }
+    }
+  }
   ''';

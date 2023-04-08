@@ -14,6 +14,6 @@ class Header extends StatelessWidget {
       overflow: TextOverflow.ellipsis,
       textAlign: TextAlign.left,
       style: TextStyles.defaultStyle.fontHeader.bold,
-    ).padding(bottom: kMaxPadding, horizontal: kDefaultPadding, top: kMinPadding);
+    ).padding(bottom: kMaxPadding, horizontal: kDefaultPadding, top: kDefaultPadding);
   }
 }

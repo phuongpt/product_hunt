@@ -20,7 +20,7 @@ class ApiClient {
 
   final GraphQLClient _graphQLClient;
 
-  Future<FetchPostsResult> fetchPosts(String pageIndex, int itemsPerPage) async {
+  Future<FetchPostsResult> fetchPosts({required String pageIndex, required int itemsPerPage}) async {
     final variables = <String, dynamic>{'after': pageIndex, 'first': itemsPerPage};
 
     final result = await _graphQLClient.query(
@@ -30,8 +30,18 @@ class ApiClient {
     return FetchPostsResult.fromJson(result.data);
   }
 
-  Future<FetchPostDetailResult> fetchPostDetail(String id) async {
-    final variables = <String, dynamic>{'id': id};
+  Future<FetchPostsResult> fetchPostsByTopic({required String topicSlug, required String pageIndex, required int itemsPerPage}) async {
+    final variables = <String, dynamic>{'topicSlug': topicSlug, 'after': pageIndex, 'first': itemsPerPage};
+
+    final result = await _graphQLClient.query(
+      QueryOptions(document: gql(queries.getPosts), variables: variables),
+    );
+    if (result.hasException) throw FetchError.exception(result.exception);
+    return FetchPostsResult.fromJson(result.data);
+  }
+
+  Future<FetchPostDetailResult> fetchPostDetail(String slug) async {
+    final variables = <String, dynamic>{'slug': slug};
 
     final result = await _graphQLClient.query(
       QueryOptions(document: gql(queries.getPostDetail), variables: variables),
@@ -40,6 +50,7 @@ class ApiClient {
     return FetchPostDetailResult.fromJson(result.data);
   }
 
+  //Topic
   Future<FetchTopicsResult> getTrendingTopics() async {
     final variables = <String, dynamic>{};
 
@@ -61,4 +72,24 @@ class ApiClient {
   }
 
   Future<void> updateFollowingTopic({required String topicId, required bool follow}) async {}
+
+  Future<SearchTopicsResult> searchTopics({required String searchTerm, required String pageIndex, required int itemsPerPage}) async {
+    final variables = <String, dynamic>{'searchTerm': searchTerm, 'after': pageIndex, 'first': itemsPerPage};
+
+    final result = await _graphQLClient.query(
+      QueryOptions(document: gql(queries.searchTopics), variables: variables),
+    );
+    if (result.hasException) throw FetchError.exception(result.exception);
+    return SearchTopicsResult.fromJson(result.data);
+  }
+
+  Future<FetchTopicDetailResult> fetchTopicDetail(String slug) async {
+    final variables = <String, dynamic>{'slug': slug};
+
+    final result = await _graphQLClient.query(
+      QueryOptions(document: gql(queries.getTopicDetail), variables: variables),
+    );
+    if (result.hasException) throw FetchError.exception(result.exception);
+    return FetchTopicDetailResult.fromJson(result.data);
+  }
 }

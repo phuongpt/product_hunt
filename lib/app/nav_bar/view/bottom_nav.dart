@@ -46,11 +46,7 @@ class _BottomNavState extends State<BottomNav> {
                 ),
                 SalomonBottomBarItem(
                   icon: const Icon(Icons.tips_and_updates_sharp),
-                  title: const Text('Updates'),
-                ),
-                SalomonBottomBarItem(
-                  icon: const Icon(Icons.search),
-                  title: const Text('Search'),
+                  title: const Text('News'),
                 ),
               ],
             ),
@@ -62,7 +58,6 @@ class _BottomNavState extends State<BottomNav> {
                   children: [
                     const PostPage(),
                     const TopicPage(),
-                    Container(),
                     Container(),
                   ],
                 );

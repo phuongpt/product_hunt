@@ -26,6 +26,7 @@ dependencies:
   random_name_generator: ^1.1.0
   salomon_bottom_bar: ^3.3.2
   sizer: ^2.0.15
+  stream_transform: ^2.1.0
   styled_widget: ^0.4.1
   timeago: ^3.3.0
 

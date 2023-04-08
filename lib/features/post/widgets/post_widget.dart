@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:product_hunt/core/constants/constants.dart';
@@ -6,7 +7,6 @@ import 'package:product_hunt/features/post/post.dart';
 import 'package:product_hunt/features/shared/shared.dart';
 import 'package:sizer/sizer.dart';
 import 'package:styled_widget/styled_widget.dart';
-import 'package:animate_do/animate_do.dart';
 
 class PostWidget extends StatefulWidget {
   const PostWidget({
@@ -97,7 +97,7 @@ class PostListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Styled.widget(
       child: ListTile(
-        onTap: () => Navigator.of(context).pushNamed('/post-detail/${item.id}'),
+        onTap: () => Navigator.of(context).pushNamed('/post-detail/${item.slug}'),
         leading: ImageView(url: item.thumbnail.url, width: 15.0.w),
         title: Text(item.name, style: TextStyles.defaultStyle.fontTitle),
         subtitle: Styled.widget(
