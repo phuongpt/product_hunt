@@ -34,7 +34,7 @@ class _TopicSearchBarState extends State<TopicSearchBar> {
           },
           style: TextStyles.defaultStyle,
           decoration: InputDecoration(
-            contentPadding: const EdgeInsets.symmetric(horizontal: kMaxPadding, vertical: kDefaultPadding),
+            contentPadding: const EdgeInsets.symmetric(horizontal: kDefaultPadding, vertical: kDefaultPadding),
             hintText: 'Search Topic',
             hintStyle: TextStyles.defaultStyle,
             filled: true,

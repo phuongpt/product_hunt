@@ -27,6 +27,7 @@ class PostView extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: ColorPalette.backgroundScaffoldColor,
         elevation: 0,
+        title: const Text('Product Hunt'),
         leading: IconButton(
           onPressed: () {},
           icon: const Icon(

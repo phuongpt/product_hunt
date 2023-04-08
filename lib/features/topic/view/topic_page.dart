@@ -32,20 +32,23 @@ class TopicView extends StatelessWidget {
           onTap: () {
             Navigator.of(context).pushNamed('/search');
           },
-          child: const TextField(
-            enabled: false,
-            decoration: InputDecoration(
-              contentPadding: EdgeInsets.all(kMinPadding),
-              prefixIcon: Icon(
-                Icons.search,
-                color: ColorPalette.backgroundColorReverse,
-              ),
-              hintText: 'Search Product',
-              hintStyle: TextStyles.defaultStyle,
-              filled: false,
-              disabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
+          child: const SizedBox(
+            height: 35,
+            child: TextField(
+              enabled: false,
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.all(kMinPadding),
+                prefixIcon: Icon(
+                  Icons.search,
                   color: ColorPalette.backgroundColorReverse,
+                ),
+                hintText: 'Search Product',
+                hintStyle: TextStyles.defaultStyle,
+                filled: false,
+                disabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: ColorPalette.backgroundColorReverse,
+                  ),
                 ),
               ),
             ),

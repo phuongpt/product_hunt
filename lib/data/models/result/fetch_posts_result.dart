@@ -6,14 +6,13 @@ class FetchPostsResult {
   FetchPostsResult.fromJson(Map<String, dynamic>? json) {
     if (json?['posts']['edges'] != null) {
       posts = List.from(json?['posts']['edges'] as Iterable).map((e) => Post.fromJson(e['node'] as Map<String, dynamic>)).toList();
-
       hasNextPage = json?['posts']['pageInfo']['hasNextPage'] as bool;
-      nextPageIndex = json?['posts']['pageInfo']['endCursor'] as String;
+      nextPageIndex = json?['posts']['pageInfo']['endCursor'] as String?;
     } else {
       posts = [];
     }
   }
   late final List<Post> posts;
   late final bool hasNextPage;
-  late final String nextPageIndex;
+  late final String? nextPageIndex;
 }

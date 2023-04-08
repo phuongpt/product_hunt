@@ -34,7 +34,7 @@ class ApiClient {
     final variables = <String, dynamic>{'topicSlug': topicSlug, 'after': pageIndex, 'first': itemsPerPage};
 
     final result = await _graphQLClient.query(
-      QueryOptions(document: gql(queries.getPosts), variables: variables),
+      QueryOptions(document: gql(queries.getPostsByTopic), variables: variables),
     );
     if (result.hasException) throw FetchError.exception(result.exception);
     return FetchPostsResult.fromJson(result.data);

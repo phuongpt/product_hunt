@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:product_hunt/core/constants/constants.dart';
 import 'package:product_hunt/data/models/models.dart';
+import 'package:product_hunt/features/topic_detail/widgets/topid_detail_post_widget.dart';
 
 import 'package:styled_widget/styled_widget.dart';
 
@@ -10,12 +11,13 @@ class TopicDetailWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          TopicDetailHeader(item: item),
-        ],
-      ),
+    return Column(
+      children: [
+        TopicDetailHeader(item: item),
+        Expanded(
+          child: TopicDetailPostWidget(topicSlug: item.slug),
+        )
+      ],
     );
   }
 }
@@ -29,7 +31,6 @@ class TopicDetailHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Styled.widget(
       child: ListTile(
-        title: Text(item.name, style: TextStyles.defaultStyle.fontTitle),
         subtitle: Styled.widget(
           child: Text(
             item.description,
@@ -37,6 +38,6 @@ class TopicDetailHeader extends StatelessWidget {
           ),
         ).padding(top: kMinPadding),
       ),
-    ).padding(vertical: kMinPadding).backgroundColor(ColorPalette.backgroundColor);
+    ).padding(vertical: kMaxPadding).backgroundColor(ColorPalette.backgroundColor);
   }
 }

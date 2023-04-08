@@ -14,7 +14,6 @@ class TopicDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(slug);
     return BlocProvider(
       create: (_) => TopicDetailCubit(repository: context.read<Repository>())..fetchData(slug),
       child: const TopicDetailView(),

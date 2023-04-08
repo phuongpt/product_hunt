@@ -28,7 +28,7 @@ class Post {
     tagline = json['tagline'] as String;
     slug = json['slug'] as String;
     votesCount = json['votesCount'] as int;
-    featuredAt = DateTime.parse(json['featuredAt'] as String);
+    featuredAt = json['featuredAt'] != null ? DateTime.parse(json['featuredAt'] as String) : null;
     thumbnail = Thumbnail.fromJson(json['thumbnail'] as Map<String, dynamic>);
     reviewsCount = json['reviewsCount'] as int;
     commentsCount = json['commentsCount'] as int;
@@ -52,7 +52,7 @@ class Post {
   late final String tagline;
   late final String slug;
   late final int votesCount;
-  late final DateTime featuredAt;
+  late final DateTime? featuredAt;
   late final Thumbnail thumbnail;
   late final String description;
   late final List<Topic> topics;

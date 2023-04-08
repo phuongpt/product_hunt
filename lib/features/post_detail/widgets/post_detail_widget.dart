@@ -44,7 +44,9 @@ class TopicsLine extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: kMinPadding),
             child: OutlinedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed('/topic-detail/${topics[index].slug}');
+              },
               style: OutlinedButton.styleFrom(
                 side: const BorderSide(color: Colors.white30),
               ),
@@ -63,7 +65,7 @@ class TopicsLine extends StatelessWidget {
 class DescriptionLine extends StatelessWidget {
   const DescriptionLine({super.key, required this.text, required this.date});
   final String text;
-  final DateTime date;
+  final DateTime? date;
 
   @override
   Widget build(BuildContext context) {
@@ -72,10 +74,11 @@ class DescriptionLine extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'FEATURED AT ${DateFormat('MM-dd-yyyy').format(date)}',
-            style: TextStyles.defaultStyle.subTitleColor.fontSubTitle,
-          ),
+          if (date != null)
+            Text(
+              'FEATURED AT ${DateFormat('MM-dd-yyyy').format(date!)}',
+              style: TextStyles.defaultStyle.subTitleColor.fontSubTitle,
+            ),
           const SizedBox(height: kItemPadding),
           Text(
             text,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_lazy_indexed_stack/flutter_lazy_indexed_stack.dart';
 import 'package:product_hunt/app/nav_bar/cubit/nav_bar_cubit.dart';
-import 'package:product_hunt/core/constants/color_palatte.dart';
+import 'package:product_hunt/core/constants/constants.dart';
 import 'package:product_hunt/features/post/post.dart';
 import 'package:product_hunt/features/topic/topic.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -48,6 +48,10 @@ class _BottomNavState extends State<BottomNav> {
                   icon: const Icon(Icons.tips_and_updates_sharp),
                   title: const Text('News'),
                 ),
+                SalomonBottomBarItem(
+                  icon: const Icon(Icons.tips_and_updates_sharp),
+                  title: const Text('Activities'),
+                ),
               ],
             ),
             extendBody: true,
@@ -58,7 +62,14 @@ class _BottomNavState extends State<BottomNav> {
                   children: [
                     const PostPage(),
                     const TopicPage(),
-                    Container(),
+                    Container(
+                      color: ColorPalette.backgroundScaffoldColor,
+                      child: Center(child: Text('News', style: TextStyles.defaultStyle.fontHeader)),
+                    ),
+                    Container(
+                      color: ColorPalette.backgroundScaffoldColor,
+                      child: Center(child: Text('Activities', style: TextStyles.defaultStyle.fontHeader)),
+                    ),
                   ],
                 );
               },

@@ -21,6 +21,13 @@ class Repository {
     return result;
   }
 
+  Future<FetchPostsResult> fetchPostsByTopic({required String topicSlug, required String pageIndex, required int itemsPerPage}) async {
+    final result = await _client.fetchPostsByTopic(topicSlug: topicSlug, pageIndex: pageIndex, itemsPerPage: itemsPerPage);
+    final posts = result.posts;
+    _cache.set(DataCacheKey.post, [...posts, ...?_cache.get(DataCacheKey.post) as List<Post>?]);
+    return result;
+  }
+
   Future<Post?> fetchPostDetail({required String slug, required bool refresh}) async {
     if (refresh) {
       final result = await _client.fetchPostDetail(slug);
