@@ -15,14 +15,12 @@ class Post {
     media = json['media'] != null ? List.from(json['media'] as Iterable<dynamic>).map((e) => Media.fromJson(e as Map<String, dynamic>)).toList() : [];
     topics = List.from(json['topics']['edges'] as Iterable<dynamic>).map((e) => Topic.fromJson(e['node'] as Map<String, dynamic>)).toList();
 
-    discussionUrl = json['discussionUrl'] as String?;
+    url = json['url'] as String?;
+    website = json['website'] as String?;
     featured = json['featured'] as bool?;
     comments = json['comments'] != null
         ? List.from(json['comments']['edges'] as Iterable<dynamic>).map((e) => Comment.fromJson(e['node'] as Map<String, dynamic>)).toList()
         : null;
-    installLinks = json['installLinks'] != null
-        ? List.from(json['installLinks'] as Iterable<dynamic>).map((e) => InstallLinks.fromJson(e as Map<String, dynamic>)).toList()
-        : [];
     badges = json['badges'] != null ? List.from(json['badges'] as Iterable<dynamic>).map((e) => Badges.fromJson(e as Map<String, dynamic>)).toList() : [];
     description = json['description'] as String? ?? json['tagline'] as String;
   }
@@ -40,9 +38,9 @@ class Post {
   late final User user;
 
   late final bool? featured;
-  late final String? discussionUrl;
+  late final String? url;
+  late final String? website;
   late final List<Badges>? badges;
   late final List<Comment>? comments;
-  late final List<InstallLinks>? installLinks;
   late final List<Media> media;
 }

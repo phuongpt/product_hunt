@@ -63,6 +63,8 @@ String getPostDetail = r'''
           }
         }
         description
+        url
+        website
         media{
           url
           type

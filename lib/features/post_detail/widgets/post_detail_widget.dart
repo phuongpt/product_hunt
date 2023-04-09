@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -7,6 +8,7 @@ import 'package:product_hunt/features/post_detail/widgets/widgets.dart';
 import 'package:product_hunt/features/shared/image/image.dart';
 import 'package:sizer/sizer.dart';
 import 'package:styled_widget/styled_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PostDetailWidget extends StatelessWidget {
   const PostDetailWidget({super.key, required this.item});
@@ -19,7 +21,7 @@ class PostDetailWidget extends StatelessWidget {
         children: [
           PostDetailHeader(item: item),
           SliderImages(items: item.media),
-          const Buttons(),
+          Buttons(post: item),
           DescriptionLine(text: item.description, date: item.featuredAt),
           TopicsLine(topics: item.topics),
           PostDetailCommentsWidget(items: item.comments)
@@ -90,8 +92,23 @@ class DescriptionLine extends StatelessWidget {
   }
 }
 
-class Buttons extends StatelessWidget {
-  const Buttons({super.key});
+class Buttons extends StatefulWidget {
+  const Buttons({super.key, required this.post});
+  final Post post;
+
+  @override
+  State<Buttons> createState() => _ButtonsState();
+}
+
+class _ButtonsState extends State<Buttons> {
+  bool upVoted = false;
+  late AnimationController animateController;
+
+  @override
+  void dispose() {
+    animateController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,21 +120,31 @@ class Buttons extends StatelessWidget {
           Styled.widget(
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
-              onPressed: () => {},
+              onPressed: () async {
+                final uri = Uri.parse(widget.post.website ?? '');
+                if (await canLaunchUrl(uri)) {
+                  await launchUrl(uri);
+                }
+              },
               child: Text('GET IT', style: TextStyles.defaultStyle.darkTextColor.bold.fontButton),
             ),
           ).width(42.0.w).height(40.0.sp),
-          Styled.widget(
-            child: ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(backgroundColor: ColorPalette.primaryColor),
-              onPressed: () => {},
-              icon: const Icon(
-                Icons.arrow_drop_up_outlined,
-                size: 40,
+          FlipInX(
+            controller: (controller) => animateController = controller,
+            manualTrigger: true,
+            child: Styled.widget(
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(backgroundColor: upVoted ? ColorPalette.primaryColor : ColorPalette.backgroundColorReverse),
+                onPressed: () => {setState(() => upVoted = !upVoted), animateController.forward(from: 0)},
+                icon: Icon(
+                  Icons.arrow_drop_up_outlined,
+                  size: 40,
+                  color: upVoted ? Colors.white : Colors.black,
+                ),
+                label: Text('UPVOTE', style: upVoted ? TextStyles.defaultStyle.bold.fontButton : TextStyles.defaultStyle.darkTextColor.bold.fontButton),
               ),
-              label: Text('UPVOTE', style: TextStyles.defaultStyle.bold.fontButton),
-            ),
-          ).width(42.0.w).height(40.0.sp),
+            ).width(42.0.w).height(40.0.sp),
+          )
         ],
       ),
     );
