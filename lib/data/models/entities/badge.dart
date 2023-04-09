@@ -1,10 +1,4 @@
 class Badges {
-  Badges({
-    required this.id,
-    required this.type,
-    required this.data,
-  });
-
   Badges.fromJson(Map<String, dynamic> json) {
     id = json['id'] as String;
     type = json['type'] as String;

@@ -7,8 +7,8 @@ import 'package:random_name_generator/random_name_generator.dart';
 import 'package:sizer/sizer.dart';
 import 'package:styled_widget/styled_widget.dart';
 
-class CommentsWidget extends StatelessWidget {
-  const CommentsWidget({super.key, required this.items});
+class PostDetailCommentsWidget extends StatelessWidget {
+  const PostDetailCommentsWidget({super.key, required this.items});
   final List<Comment>? items;
 
   @override

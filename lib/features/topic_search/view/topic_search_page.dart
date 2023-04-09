@@ -23,19 +23,28 @@ class TopicSearchView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final canBack = Navigator.of(context).canPop();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorPalette.backgroundScaffoldColor,
         elevation: 0,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          icon: Icon(
-            Icons.adaptive.arrow_back_sharp,
-            color: Colors.white,
-          ),
-        ),
+        leading: canBack
+            ? IconButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                icon: Icon(
+                  Icons.adaptive.arrow_back_sharp,
+                  color: Colors.white,
+                ),
+              )
+            : IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.search_sharp,
+                  color: Colors.white,
+                ),
+              ),
         title: const TopicSearchBar(),
       ),
       backgroundColor: ColorPalette.backgroundScaffoldColor,

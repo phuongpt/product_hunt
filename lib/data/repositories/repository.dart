@@ -17,44 +17,46 @@ class Repository {
   Future<FetchPostsResult> fetchPosts({required String pageIndex, required int itemsPerPage}) async {
     final result = await _client.fetchPosts(pageIndex: pageIndex, itemsPerPage: itemsPerPage);
     final posts = result.posts;
-    _cache.set(DataCacheKey.post, [...posts, ...?_cache.get(DataCacheKey.post) as List<Post>?]);
+
+    _cache.set(DataCacheKey.post, [...posts, ...?_cache.get<List<Post>>(DataCacheKey.post)]);
+
     return result;
   }
 
   Future<FetchPostsResult> fetchPostsByTopic({required String topicSlug, required String pageIndex, required int itemsPerPage}) async {
     final result = await _client.fetchPostsByTopic(topicSlug: topicSlug, pageIndex: pageIndex, itemsPerPage: itemsPerPage);
     final posts = result.posts;
-    _cache.set(DataCacheKey.post, [...posts, ...?_cache.get(DataCacheKey.post) as List<Post>?]);
+
+    _cache.set(DataCacheKey.post, [...posts, ...?_cache.get<List<Post>>(DataCacheKey.post)]);
+
     return result;
   }
 
   Future<Post?> fetchPostDetail({required String slug, required bool refresh}) async {
-    if (refresh) {
-      final result = await _client.fetchPostDetail(slug);
-      return result.post;
+    if (!refresh) {
+      final cache = _cache.get<List<Post>>(DataCacheKey.post)?.firstWhereOrNull((post) => post.slug == slug);
+      if (cache != null) {
+        return cache;
+      }
     }
-
-    final cachedResult = _cache.get(DataCacheKey.post);
-    if (cachedResult != null) {
-      final posts = cachedResult as List<Post>;
-      return posts.firstWhereOrNull((post) => post.slug == slug);
-    }
-
-    return null;
+    final result = await _client.fetchPostDetail(slug);
+    return result.post;
   }
 
   //Topics
   Future<FetchTopicsResult> getTrendingTopics() async {
     final result = await _client.getTrendingTopics();
     final topics = result.topics;
-    _cache.set(DataCacheKey.topic, [...topics, ...?_cache.get(DataCacheKey.topic) as List<Topic>?]);
+    _cache.set(DataCacheKey.topic, [...topics, ...?_cache.get<List<Topic>>(DataCacheKey.topic)]);
     return result;
   }
 
   Future<FetchTopicsResult> getPopularTopics() async {
     final result = await _client.getPopularTopics();
     final topics = result.topics;
-    _cache.set(DataCacheKey.topic, [...topics, ...?_cache.get(DataCacheKey.topic) as List<Topic>?]);
+
+    _cache.set(DataCacheKey.topic, [...topics, ...?_cache.get<List<Topic>>(DataCacheKey.topic)]);
+
     return result;
   }
 
@@ -65,22 +67,47 @@ class Repository {
   Future<SearchTopicsResult> searchTopics({required String searchTerm, required String pageIndex, required int itemsPerPage}) async {
     final result = await _client.searchTopics(searchTerm: searchTerm, pageIndex: pageIndex, itemsPerPage: itemsPerPage);
     final topics = result.topics;
-    _cache.set(DataCacheKey.topic, [...topics, ...?_cache.get(DataCacheKey.topic) as List<Topic>?]);
+
+    _cache.set(DataCacheKey.topic, [...topics, ...?_cache.get<List<Topic>>(DataCacheKey.topic)]);
+
     return result;
   }
 
   Future<Topic?> fetchTopicDetail({required String slug, required bool refresh}) async {
-    if (refresh) {
-      final result = await _client.fetchTopicDetail(slug);
-      return result.post;
+    if (!refresh) {
+      final cache = _cache.get<List<Topic>>(DataCacheKey.topic)?.firstWhereOrNull((topic) => topic.slug == slug);
+      if (cache != null) {
+        return cache;
+      }
     }
 
-    final cachedResult = _cache.get(DataCacheKey.topic);
-    if (cachedResult != null) {
-      final topics = cachedResult as List<Topic>;
-      return topics.firstWhereOrNull((topic) => topic.slug == slug);
+    final result = await _client.fetchTopicDetail(slug);
+    return result.post;
+  }
+
+  //Collections
+  Future<FetchCollectionsResult> fetchCollections({required String pageIndex, required int itemsPerPage}) async {
+    final result = await _client.fetchCollections(pageIndex: pageIndex, itemsPerPage: itemsPerPage);
+    final collections = result.collections;
+
+    _cache.set(DataCacheKey.collection, [...collections, ...?_cache.get<List<Collection>>(DataCacheKey.collection)]);
+
+    return result;
+  }
+
+  Future<Collection?> fetchCollectionDetail({required String id, required bool refresh}) async {
+    if (!refresh) {
+      final cache = _cache.get<List<Collection>>(DataCacheKey.collection)?.firstWhereOrNull((collection) => collection.id == id);
+      if (cache != null) {
+        return cache;
+      }
     }
 
-    return null;
+    final result = await _client.fetchCollectionDetail(id);
+    return result.collection;
+  }
+
+  Future<void> updateFollowingCollection({required String collectionId, required bool follow}) async {
+    await _client.updateFollowingCollection(collectionId: collectionId, follow: follow);
   }
 }

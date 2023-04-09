@@ -92,4 +92,27 @@ class ApiClient {
     if (result.hasException) throw FetchError.exception(result.exception);
     return FetchTopicDetailResult.fromJson(result.data);
   }
+
+  //Collection
+  Future<FetchCollectionsResult> fetchCollections({required String pageIndex, required int itemsPerPage}) async {
+    final variables = <String, dynamic>{'after': pageIndex, 'first': itemsPerPage};
+
+    final result = await _graphQLClient.query(
+      QueryOptions(document: gql(queries.getCollections), variables: variables),
+    );
+    if (result.hasException) throw FetchError.exception(result.exception);
+    return FetchCollectionsResult.fromJson(result.data);
+  }
+
+  Future<FetchCollectionDetailResult> fetchCollectionDetail(String id) async {
+    final variables = <String, dynamic>{'id': id};
+
+    final result = await _graphQLClient.query(
+      QueryOptions(document: gql(queries.getCollectionDetail), variables: variables),
+    );
+    if (result.hasException) throw FetchError.exception(result.exception);
+    return FetchCollectionDetailResult.fromJson(result.data);
+  }
+
+  Future<void> updateFollowingCollection({required String collectionId, required bool follow}) async {}
 }

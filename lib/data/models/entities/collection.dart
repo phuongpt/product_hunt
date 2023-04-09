@@ -1,26 +1,30 @@
 // ignore_for_file: avoid_bool_literals_in_conditional_expressions
 
-class Topic {
-  Topic.fromJson(Map<String, dynamic> json) {
+import 'package:product_hunt/data/models/models.dart';
+
+class Collection {
+  Collection.fromJson(Map<String, dynamic> json) {
     id = json['id'] as String;
     name = json['name'] as String;
-    slug = json['slug'] as String;
     followersCount = json['followersCount'] != null ? json['followersCount'] as int : 0;
-    postsCount = json['postsCount'] != null ? json['postsCount'] as int : 0;
-    image = json['image'] != null ? json['image'] as String : '';
+    coverImage = json['coverImage'] != null ? json['coverImage'] as String : '';
     description = json['description'] != null ? json['description'] as String : '';
+    tagline = json['tagline'] != null ? json['tagline'] as String : '';
     isFollowing = json['isFollowing'] != null ? json['isFollowing'] as bool : false;
+    posts = json['posts'] != null
+        ? List.from(json['posts']['edges'] as Iterable<dynamic>).map((e) => Post.fromJson(e['node'] as Map<String, dynamic>)).toList()
+        : null;
     followersCountString = displayFollowerCount(followersCount);
   }
   late final String id;
   late final String name;
-  late final String slug;
   late final int followersCount;
   late final String followersCountString;
   late final bool isFollowing;
-  late final int postsCount;
-  late final String image;
+  late final String coverImage;
   late final String description;
+  late final String tagline;
+  late final List<Post>? posts;
 
   String displayFollowerCount(int followersCount) {
     var followerAsString = '';

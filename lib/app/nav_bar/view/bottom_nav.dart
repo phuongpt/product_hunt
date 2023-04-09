@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_lazy_indexed_stack/flutter_lazy_indexed_stack.dart';
 import 'package:product_hunt/app/nav_bar/cubit/nav_bar_cubit.dart';
 import 'package:product_hunt/core/constants/constants.dart';
+import 'package:product_hunt/features/collection/collection.dart';
 import 'package:product_hunt/features/post/post.dart';
 import 'package:product_hunt/features/topic/topic.dart';
+import 'package:product_hunt/features/topic_search/topic_search.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 class BottomNav extends StatefulWidget {
@@ -45,12 +47,12 @@ class _BottomNavState extends State<BottomNav> {
                   title: const Text('Topics'),
                 ),
                 SalomonBottomBarItem(
-                  icon: const Icon(Icons.tips_and_updates_sharp),
-                  title: const Text('News'),
+                  icon: const Icon(Icons.group_work_sharp),
+                  title: const Text('Collections'),
                 ),
                 SalomonBottomBarItem(
-                  icon: const Icon(Icons.tips_and_updates_sharp),
-                  title: const Text('Activities'),
+                  icon: const Icon(Icons.search_sharp),
+                  title: const Text('Search'),
                 ),
               ],
             ),
@@ -59,17 +61,11 @@ class _BottomNavState extends State<BottomNav> {
               builder: (context, state) {
                 return LazyIndexedStack(
                   index: state.currentIndex,
-                  children: [
-                    const PostPage(),
-                    const TopicPage(),
-                    Container(
-                      color: ColorPalette.backgroundScaffoldColor,
-                      child: Center(child: Text('News', style: TextStyles.defaultStyle.fontHeader)),
-                    ),
-                    Container(
-                      color: ColorPalette.backgroundScaffoldColor,
-                      child: Center(child: Text('Activities', style: TextStyles.defaultStyle.fontHeader)),
-                    ),
+                  children: const [
+                    PostPage(),
+                    TopicPage(),
+                    CollectionPage(),
+                    TopicSearchPage(),
                   ],
                 );
               },

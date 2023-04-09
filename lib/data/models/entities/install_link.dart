@@ -1,13 +1,4 @@
 class InstallLinks {
-  InstallLinks({
-    required this.id,
-    required this.postId,
-    required this.createdAt,
-    required this.primaryLink,
-    required this.websiteName,
-    required this.redirectUrl,
-  });
-
   InstallLinks.fromJson(Map<String, dynamic> json) {
     id = json['id'] as String;
     postId = json['post_id'] as String;

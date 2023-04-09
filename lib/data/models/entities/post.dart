@@ -1,27 +1,6 @@
 import 'package:product_hunt/data/models/entities/entities.dart';
 
 class Post {
-  Post({
-    required this.id,
-    required this.name,
-    required this.tagline,
-    required this.slug,
-    required this.votesCount,
-    required this.featuredAt,
-    required this.thumbnail,
-    required this.topics,
-    required this.description,
-    required this.commentsCount,
-    required this.reviewsCount,
-    required this.user,
-    required this.media,
-    this.discussionUrl,
-    this.featured,
-    this.installLinks,
-    this.comments,
-    this.badges,
-  });
-
   Post.fromJson(Map<String, dynamic> json) {
     id = json['id'] as String;
     name = json['name'] as String;

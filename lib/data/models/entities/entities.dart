@@ -1,4 +1,5 @@
 export './badge.dart';
+export './collection.dart';
 export './comment.dart';
 export './image.dart';
 export './install_link.dart';

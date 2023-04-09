@@ -81,6 +81,11 @@ class ImageView extends StatelessWidget {
         fit: fit,
       );
     }
-    return const SizedBox();
+    return Image.asset(
+      placeHolder,
+      height: height,
+      width: width,
+      fit: fit,
+    );
   }
 }

@@ -35,8 +35,6 @@ class TopicBloc extends Bloc<TopicEvent, TopicState> {
       log('_onFetchData', name: 'TopicBloc', error: _);
       emit(state.copyWith(popularStatus: TopicStatus.failure));
     }
-
-    emit(state.updateFollowings());
   }
 
   Future<void> _onUpdateFollow(TopicFollowUpdated event, Emitter<TopicState> emit) async {

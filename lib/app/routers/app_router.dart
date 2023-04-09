@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:product_hunt/core/exceptions/route_exception.dart';
+import 'package:product_hunt/features/collection_detail/view/collection_detail_page.dart';
 import 'package:product_hunt/features/post_detail/post_detail.dart';
 import 'package:product_hunt/features/topic_detail/topic_detail.dart';
 import 'package:product_hunt/features/topic_search/topic_search.dart';
@@ -22,6 +23,12 @@ class AppRouter {
         final slug = uri.pathSegments[1];
         return MaterialPageRoute(
           builder: (_) => TopicDetailPage(slug: slug),
+          settings: settings,
+        );
+      case 'collection-detail':
+        final id = uri.pathSegments[1];
+        return MaterialPageRoute(
+          builder: (_) => CollectionDetailPage(id: id),
           settings: settings,
         );
       case 'search':

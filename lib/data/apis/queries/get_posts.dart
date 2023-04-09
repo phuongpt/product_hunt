@@ -6,7 +6,7 @@ String getPosts = r'''
           endCursor
         }
         edges {
-          node {
+            node {
               id
               name
               tagline
@@ -26,11 +26,6 @@ String getPosts = r'''
                     id
                   }
                 }
-              }
-              user {
-                headline
-                id,
-                name
               }
               description
               media{
@@ -127,11 +122,6 @@ String getPostsByTopic = r'''
                 id
               }
             }
-          }
-          user {
-            headline
-            id,
-            name
           }
           description
           media{

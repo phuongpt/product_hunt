@@ -1,10 +1,4 @@
 class Media {
-  Media({
-    required this.url,
-    required this.type,
-    this.videoUrl,
-  });
-
   Media.fromJson(Map<String, dynamic> json) {
     url = json['url'] as String;
     type = json['type'] as String;

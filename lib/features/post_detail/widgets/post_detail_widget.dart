@@ -22,7 +22,7 @@ class PostDetailWidget extends StatelessWidget {
           const Buttons(),
           DescriptionLine(text: item.description, date: item.featuredAt),
           TopicsLine(topics: item.topics),
-          CommentsWidget(items: item.comments)
+          PostDetailCommentsWidget(items: item.comments)
         ],
       ),
     );
@@ -163,8 +163,8 @@ class PostDetailHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Styled.widget(
       child: ListTile(
-        leading: Image.network(
-          item.thumbnail.url,
+        leading: ImageView(
+          url: item.thumbnail.url,
           fit: BoxFit.contain,
         ),
         title: Text(item.name, style: TextStyles.defaultStyle.fontTitle),

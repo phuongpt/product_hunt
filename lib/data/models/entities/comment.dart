@@ -1,16 +1,6 @@
 import 'package:product_hunt/data/models/entities/entities.dart';
 
 class Comment {
-  Comment({
-    required this.id,
-    required this.body,
-    required this.createdAt,
-    required this.repliesCount,
-    required this.votesCount,
-    required this.user,
-    required this.replies,
-  });
-
   Comment.fromJson(Map<String, dynamic> json) {
     id = json['id'] as String;
     body = json['body'] as String;
