@@ -134,7 +134,7 @@ class _ButtonsState extends State<Buttons> with SingleTickerProviderStateMixin {
                 try {
                   final uri = Uri.parse(widget.post.website ?? '');
                   if (await canLaunchUrl(uri)) {
-                    await launchUrl(uri);
+                    await launchUrl(uri, mode: LaunchMode.externalApplication);
                   }
                 } catch (_) {}
               },
@@ -183,6 +183,7 @@ class SliderImages extends StatelessWidget {
                 child: ImageView(
                   url: item.url,
                   width: 90.0.w,
+                  fit: BoxFit.contain,
                 ),
               );
             },

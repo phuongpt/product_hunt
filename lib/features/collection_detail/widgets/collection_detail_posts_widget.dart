@@ -35,7 +35,7 @@ class PostListItem extends StatelessWidget {
     return Styled.widget(
       child: ListTile(
         onTap: () => Navigator.of(context).pushNamed('/post-detail/${item.slug}'),
-        leading: ImageView(url: item.thumbnail.url, width: 15.0.w),
+        leading: ImageView(url: item.thumbnail.url, width: 15.0.w, height: 15.0.w),
         title: Text(item.name, style: TextStyles.defaultStyle.fontTitle),
         subtitle: Styled.widget(
           child: Text(
@@ -51,7 +51,7 @@ class PostListItem extends StatelessWidget {
               children: [
                 Icon(
                   Icons.arrow_drop_up_outlined,
-                  size: 30.sp,
+                  size: 25.sp,
                   color: ColorPalette.backgroundColorReverse,
                 ),
                 Text(
