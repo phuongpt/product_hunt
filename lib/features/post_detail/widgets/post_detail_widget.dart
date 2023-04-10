@@ -100,13 +100,23 @@ class Buttons extends StatefulWidget {
   State<Buttons> createState() => _ButtonsState();
 }
 
-class _ButtonsState extends State<Buttons> {
+class _ButtonsState extends State<Buttons> with SingleTickerProviderStateMixin {
   bool upVoted = false;
   late AnimationController animateController;
 
   @override
+  void initState() {
+    super.initState();
+    animateController = AnimationController(
+      vsync: this,
+    );
+  }
+
+  @override
   void dispose() {
-    animateController.dispose();
+    if (animateController.isAnimating) {
+      animateController.stop();
+    }
     super.dispose();
   }
 
@@ -121,10 +131,12 @@ class _ButtonsState extends State<Buttons> {
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
               onPressed: () async {
-                final uri = Uri.parse(widget.post.website ?? '');
-                if (await canLaunchUrl(uri)) {
-                  await launchUrl(uri);
-                }
+                try {
+                  final uri = Uri.parse(widget.post.website ?? '');
+                  if (await canLaunchUrl(uri)) {
+                    await launchUrl(uri);
+                  }
+                } catch (_) {}
               },
               child: Text('GET IT', style: TextStyles.defaultStyle.darkTextColor.bold.fontButton),
             ),

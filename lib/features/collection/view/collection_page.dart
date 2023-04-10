@@ -23,30 +23,9 @@ class CollectionView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: ColorPalette.backgroundScaffoldColor,
-        elevation: 0,
-        title: const Text('Collections'),
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.settings,
-            color: Colors.white,
-          ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.account_circle_outlined,
-              color: Colors.white,
-            ),
-          )
-        ],
-      ),
+    return const Scaffold(
       backgroundColor: ColorPalette.backgroundScaffoldColor,
-      body: const CollectionWidget(),
+      body: CollectionWidget(),
     );
   }
 }

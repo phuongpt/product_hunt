@@ -10,21 +10,23 @@ import 'package:sizer/sizer.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 class TopicDetailPostWidget extends StatelessWidget {
-  const TopicDetailPostWidget({super.key, required this.topicSlug});
+  const TopicDetailPostWidget({super.key, required this.topicSlug, required this.header});
   final String topicSlug;
+  final Widget header;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => TopicDetailPostBloc(repository: context.read<Repository>())..add(TopicDetailPostFetched(topicSlug: topicSlug)),
-      child: TopidDetailPost(topicSlug: topicSlug),
+      child: TopidDetailPost(topicSlug: topicSlug, header: header),
     );
   }
 }
 
 class TopidDetailPost extends StatefulWidget {
-  const TopidDetailPost({super.key, required this.topicSlug});
+  const TopidDetailPost({super.key, required this.topicSlug, required this.header});
   final String topicSlug;
+  final Widget header;
 
   @override
   State<TopidDetailPost> createState() => _TopidDetailPostState();
@@ -46,6 +48,9 @@ class _TopidDetailPostState extends State<TopidDetailPost> {
         return CustomScrollView(
           controller: _scrollController,
           slivers: <Widget>[
+            SliverList(
+              delegate: SliverChildListDelegate([widget.header]),
+            ),
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 (_, index) {

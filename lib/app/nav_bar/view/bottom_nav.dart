@@ -24,51 +24,54 @@ class _BottomNavState extends State<BottomNav> {
       child: BlocConsumer<NavBarCubit, NavBarState>(
         listener: (context, state) {},
         builder: (context, state) {
-          return Scaffold(
-            bottomNavigationBar: SalomonBottomBar(
-              currentIndex: state.currentIndex,
-              onTap: (index) => setState(
-                () => NavBarCubit.get(context).changeBottomNavBar(index),
-              ),
-              selectedItemColor: ColorPalette.backgroundColorReverse,
-              backgroundColor: ColorPalette.backgroundScaffoldColor,
-              unselectedItemColor: ColorPalette.backgroundColorReverse,
-              selectedColorOpacity: 0.2,
-              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              items: [
-                SalomonBottomBarItem(
-                  icon: const Icon(
-                    Icons.home,
+          return SafeArea(
+            bottom: false,
+            child: Scaffold(
+              bottomNavigationBar: SalomonBottomBar(
+                currentIndex: state.currentIndex,
+                onTap: (index) => setState(
+                  () => NavBarCubit.get(context).changeBottomNavBar(index),
+                ),
+                selectedItemColor: ColorPalette.backgroundColorReverse,
+                backgroundColor: ColorPalette.backgroundScaffoldColor,
+                unselectedItemColor: ColorPalette.backgroundColorReverse,
+                selectedColorOpacity: 0.2,
+                margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                items: [
+                  SalomonBottomBarItem(
+                    icon: const Icon(
+                      Icons.home,
+                    ),
+                    title: const Text('Home'),
                   ),
-                  title: const Text('Home'),
-                ),
-                SalomonBottomBarItem(
-                  icon: const Icon(Icons.explore),
-                  title: const Text('Topics'),
-                ),
-                SalomonBottomBarItem(
-                  icon: const Icon(Icons.group_work_sharp),
-                  title: const Text('Collections'),
-                ),
-                SalomonBottomBarItem(
-                  icon: const Icon(Icons.search_sharp),
-                  title: const Text('Search'),
-                ),
-              ],
-            ),
-            extendBody: true,
-            body: BlocBuilder<NavBarCubit, NavBarState>(
-              builder: (context, state) {
-                return LazyIndexedStack(
-                  index: state.currentIndex,
-                  children: const [
-                    PostPage(),
-                    TopicPage(),
-                    CollectionPage(),
-                    TopicSearchPage(),
-                  ],
-                );
-              },
+                  SalomonBottomBarItem(
+                    icon: const Icon(Icons.explore),
+                    title: const Text('Topics'),
+                  ),
+                  SalomonBottomBarItem(
+                    icon: const Icon(Icons.group_work_sharp),
+                    title: const Text('Collections'),
+                  ),
+                  SalomonBottomBarItem(
+                    icon: const Icon(Icons.search_sharp),
+                    title: const Text('Search'),
+                  ),
+                ],
+              ),
+              extendBody: true,
+              body: BlocBuilder<NavBarCubit, NavBarState>(
+                builder: (context, state) {
+                  return LazyIndexedStack(
+                    index: state.currentIndex,
+                    children: const [
+                      PostPage(),
+                      TopicPage(),
+                      CollectionPage(),
+                      TopicSearchPage(),
+                    ],
+                  );
+                },
+              ),
             ),
           );
         },

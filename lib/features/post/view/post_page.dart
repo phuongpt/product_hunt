@@ -24,27 +24,6 @@ class PostView extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: ColorPalette.backgroundScaffoldColor,
-        elevation: 0,
-        title: const Text('Product Hunt'),
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.settings,
-            color: Colors.white,
-          ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.account_circle_outlined,
-              color: Colors.white,
-            ),
-          )
-        ],
-      ),
       backgroundColor: ColorPalette.backgroundScaffoldColor,
       body: const PostWidget(),
     );

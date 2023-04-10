@@ -34,6 +34,11 @@ class _CollectionWidgetState extends State<CollectionWidget> {
           controller: _scrollController,
           slivers: <Widget>[
             SliverList(
+              delegate: SliverChildListDelegate([
+                const Header(title: 'Collections'),
+              ]),
+            ),
+            SliverList(
               delegate: SliverChildBuilderDelegate(
                 (_, index) {
                   return CollectionListItem(

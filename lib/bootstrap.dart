@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class AppBlocObserver extends BlocObserver {
