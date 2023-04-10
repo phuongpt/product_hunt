@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
-import 'package:product_hunt/app/nav_bar/nav_bar.dart';
 import 'package:product_hunt/app/routers/app_router.dart';
 import 'package:product_hunt/core/constants/color_palatte.dart';
 import 'package:product_hunt/data/repositories/repository.dart';
 import 'package:product_hunt/l10n/l10n.dart';
+import 'package:product_hunt/nav_bar/nav_bar.dart';
 import 'package:sizer/sizer.dart';
 
 class App extends StatelessWidget {
@@ -17,9 +17,11 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
       value: _repository,
-      child: Sizer(builder: (context, orientation, deviceType) {
-        return const AppView();
-      }),
+      child: Sizer(
+        builder: (context, orientation, deviceType) {
+          return const AppView();
+        },
+      ),
     );
   }
 }
@@ -57,7 +59,7 @@ class _AppViewState extends State<AppView> with WidgetsBindingObserver {
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const BottomNav(),
+      home: const BottomNavPage(),
       onGenerateRoute: AppRouter.onGenerateRoute,
     );
   }
