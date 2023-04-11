@@ -1,9 +1,11 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:product_hunt/core/constants/constants.dart';
 import 'package:product_hunt/data/models/models.dart';
+import 'package:product_hunt/features/post_detail/cubit/post_detail_cubit.dart';
 import 'package:product_hunt/features/post_detail/widgets/widgets.dart';
 import 'package:product_hunt/features/shared/image/image.dart';
 import 'package:sizer/sizer.dart';
@@ -101,7 +103,6 @@ class Buttons extends StatefulWidget {
 }
 
 class _ButtonsState extends State<Buttons> with SingleTickerProviderStateMixin {
-  bool upVoted = false;
   late AnimationController animateController;
 
   @override
@@ -141,21 +142,28 @@ class _ButtonsState extends State<Buttons> with SingleTickerProviderStateMixin {
               child: Text('GET IT', style: TextStyles.defaultStyle.darkTextColor.bold.fontButton),
             ),
           ).width(42.0.w).height(40.0.sp),
-          FlipInX(
-            controller: (controller) => animateController = controller,
-            manualTrigger: true,
-            child: Styled.widget(
-              child: ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(backgroundColor: upVoted ? ColorPalette.primaryColor : ColorPalette.backgroundColorReverse),
-                onPressed: () => {setState(() => upVoted = !upVoted), animateController.forward(from: 0)},
-                icon: Icon(
-                  Icons.arrow_drop_up_outlined,
-                  size: 40,
-                  color: upVoted ? Colors.white : Colors.black,
-                ),
-                label: Text('UPVOTE', style: upVoted ? TextStyles.defaultStyle.bold.fontButton : TextStyles.defaultStyle.darkTextColor.bold.fontButton),
-              ),
-            ).width(42.0.w).height(40.0.sp),
+          BlocConsumer<PostDetailCubit, PostDetailState>(
+            buildWhen: (previous, current) => previous.upVoted != current.upVoted,
+            listener: (context, state) => animateController.forward(from: 0),
+            builder: (context, state) {
+              return FlipInX(
+                controller: (controller) => animateController = controller,
+                manualTrigger: true,
+                child: Styled.widget(
+                  child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(backgroundColor: state.upVoted ? ColorPalette.primaryColor : ColorPalette.backgroundColorReverse),
+                    onPressed: () => {context.read<PostDetailCubit>().upVote()},
+                    icon: Icon(
+                      Icons.arrow_drop_up_outlined,
+                      size: 40,
+                      color: state.upVoted ? Colors.white : Colors.black,
+                    ),
+                    label:
+                        Text('UPVOTE', style: state.upVoted ? TextStyles.defaultStyle.bold.fontButton : TextStyles.defaultStyle.darkTextColor.bold.fontButton),
+                  ),
+                ).width(42.0.w).height(40.0.sp),
+              );
+            },
           )
         ],
       ),

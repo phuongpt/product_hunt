@@ -31,4 +31,8 @@ class PostDetailCubit extends Cubit<PostDetailState> {
       emit(const PostDetailState.failure());
     }
   }
+
+  Future<void> upVote() async {
+    emit(PostDetailState.upvote(upVoted: !state.upVoted, item: state.item!));
+  }
 }

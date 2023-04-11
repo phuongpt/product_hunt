@@ -13,7 +13,7 @@ void main() {
   final data = FetchPostsResult(
     posts: [],
     hasNextPage: true,
-    nextPageIndex: '',
+    nextPageIndex: 'next_cursor',
   );
 
   group('PostBloc', () {
@@ -21,7 +21,6 @@ void main() {
 
     setUp(() {
       repository = MockRepository();
-      // when(repository.fetchPosts(pageIndex: '', itemsPerPage: 10)).thenAnswer((_) => const Stream.empty());
     });
 
     PostBloc buildBloc() => PostBloc(repository: repository);
@@ -37,18 +36,18 @@ void main() {
     });
 
     group('PostFetched', () {
-      // blocTest<PostBloc, PostState>(
-      //   'starts listening to repository get future',
-      //   build: buildBloc,
-      //   act: (bloc) => bloc.add(PostFetched()),
-      //   verify: (bloc) {
-      //     verify(() => repository.fetchPosts(pageIndex: '', itemsPerPage: 10)).called(1);
-      //   },
-      // );
+      blocTest<PostBloc, PostState>(
+        'starts listening to repository get future of FetchPostsResult',
+        build: buildBloc,
+        act: (bloc) => bloc.add(PostFetched()),
+        verify: (bloc) {
+          verify(() => repository.fetchPosts(pageIndex: '', itemsPerPage: 10)).called(1);
+        },
+      );
 
       blocTest<PostBloc, PostState>(
-        'emits state with updated status, items, hasNextPage, nextPageIndex'
-        'when repository get stream emits fetchPosts',
+        'emits state with updated status, items, hasNextPage, nextPageIndex '
+        'when repository get future emits fetchPosts',
         setUp: () {
           when(
             () => repository.fetchPosts(pageIndex: '', itemsPerPage: 10),
@@ -57,36 +56,51 @@ void main() {
         build: buildBloc,
         act: (bloc) => bloc.add(PostFetched()),
         expect: () => [
-          const PostState(
-            status: PostStatus.initial,
-            items: [],
-            hasNextPage: true,
-            nextPageIndex: '',
-          ),
+          const PostState(status: PostStatus.initial),
           const PostState(
             status: PostStatus.success,
             items: [],
             hasNextPage: true,
-            nextPageIndex: '',
+            nextPageIndex: 'next_cursor',
           ),
         ],
       );
 
-      // blocTest<PostBloc, PostState>(
-      //   'emits state with failure status '
-      //   'when repository get stream emits error',
-      //   setUp: () {
-      //     when(
-      //       () => repository.get(),
-      //     ).thenAnswer((_) => Stream.error(Exception('oops')));
-      //   },
-      //   build: buildBloc,
-      //   act: (bloc) => bloc.add(const StatsSubscriptionRequested()),
-      //   expect: () => [
-      //     const PostState(status: StatsStatus.loading),
-      //     const PostState(status: StatsStatus.failure),
-      //   ],
-      // );
+      blocTest<PostBloc, PostState>(
+        'emits state with failure status '
+        'when repository get future emits error',
+        setUp: () {
+          when(
+            () => repository.fetchPosts(pageIndex: '', itemsPerPage: 10),
+          ).thenAnswer((_) => Future.error(Exception('oops')));
+        },
+        build: buildBloc,
+        act: (bloc) => bloc.add(PostFetched()),
+        expect: () => [
+          const PostState(status: PostStatus.initial),
+          const PostState(status: PostStatus.failure),
+        ],
+      );
+
+      blocTest<PostBloc, PostState>(
+        'emits repository never call fetchPosts '
+        'when state with loading status ',
+        build: buildBloc,
+        act: (bloc) => {bloc.add(PostFetched()), bloc.emit(const PostState().copyWith(status: PostStatus.loading))},
+        verify: (bloc) {
+          verifyNever(() => repository.fetchPosts(pageIndex: '', itemsPerPage: 10));
+        },
+      );
+
+      blocTest<PostBloc, PostState>(
+        'emits repository never call fetchPosts '
+        'when hasNextPage is false',
+        build: buildBloc,
+        act: (bloc) => {bloc.add(PostFetched()), bloc.emit(const PostState().copyWith(hasNextPage: false))},
+        verify: (bloc) {
+          verifyNever(() => repository.fetchPosts(pageIndex: '', itemsPerPage: 10));
+        },
+      );
     });
   });
 }
