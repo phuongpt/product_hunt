@@ -33,7 +33,9 @@ class AppRouter {
         );
       case 'search':
         return MaterialPageRoute(
-          builder: (_) => const TopicSearchPage(),
+          builder: (_) => const TopicSearchPage(
+            canBack: true,
+          ),
           settings: settings,
         );
       default:

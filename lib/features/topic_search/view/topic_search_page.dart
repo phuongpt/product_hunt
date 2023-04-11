@@ -6,24 +6,25 @@ import 'package:product_hunt/features/topic_search/topic_search.dart';
 import 'package:product_hunt/l10n/l10n.dart';
 
 class TopicSearchPage extends StatelessWidget {
-  const TopicSearchPage({super.key});
+  const TopicSearchPage({super.key, required this.canBack});
+  final bool canBack;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => TopicSearchBloc(repository: context.read<Repository>()),
-      child: const TopicSearchView(),
+      child: TopicSearchView(canBack: canBack),
     );
   }
 }
 
 class TopicSearchView extends StatelessWidget {
-  const TopicSearchView({super.key});
+  const TopicSearchView({super.key, required this.canBack});
+  final bool canBack;
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final canBack = Navigator.of(context).canPop();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorPalette.backgroundScaffoldColor,

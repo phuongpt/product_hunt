@@ -74,7 +74,9 @@ class _BottomNavViewState extends State<BottomNavView> {
                 PostPage(),
                 TopicPage(),
                 CollectionPage(),
-                TopicSearchPage(),
+                TopicSearchPage(
+                  canBack: false,
+                ),
               ],
             ),
           ),

@@ -3,6 +3,7 @@
 import 'package:product_hunt/data/models/models.dart';
 
 class FetchPostsResult {
+  FetchPostsResult({required this.posts, this.hasNextPage = false, this.nextPageIndex});
   FetchPostsResult.fromJson(Map<String, dynamic>? json) {
     if (json?['posts']['edges'] != null) {
       posts = List.from(json?['posts']['edges'] as Iterable).map((e) => Post.fromJson(e['node'] as Map<String, dynamic>)).toList();
