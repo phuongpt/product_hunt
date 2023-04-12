@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:product_hunt/core/constants/constants.dart';
+import 'package:product_hunt/core/extensions/extensions.dart';
 import 'package:product_hunt/data/repositories/repository.dart';
 import 'package:product_hunt/features/topic/topic.dart';
 import 'package:product_hunt/features/topic/widgets/widgets.dart';

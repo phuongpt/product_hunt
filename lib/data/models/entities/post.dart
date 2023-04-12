@@ -1,6 +1,25 @@
 import 'package:product_hunt/data/models/entities/entities.dart';
 
 class Post {
+  Post({
+    required this.id,
+    required this.name,
+    required this.tagline,
+    required this.slug,
+    required this.votesCount,
+    required this.thumbnail,
+    required this.description,
+    required this.topics,
+    required this.commentsCount,
+    required this.reviewsCount,
+    required this.user,
+    this.featuredAt,
+    this.featured,
+    this.url,
+    this.website,
+    this.comments,
+    required this.media,
+  });
   Post.fromJson(Map<String, dynamic> json) {
     id = json['id'] as String;
     name = json['name'] as String;
@@ -21,7 +40,6 @@ class Post {
     comments = json['comments'] != null
         ? List.from(json['comments']['edges'] as Iterable<dynamic>).map((e) => Comment.fromJson(e['node'] as Map<String, dynamic>)).toList()
         : null;
-    badges = json['badges'] != null ? List.from(json['badges'] as Iterable<dynamic>).map((e) => Badges.fromJson(e as Map<String, dynamic>)).toList() : [];
     description = json['description'] as String? ?? json['tagline'] as String;
   }
   late final String id;
@@ -40,7 +58,6 @@ class Post {
   late final bool? featured;
   late final String? url;
   late final String? website;
-  late final List<Badges>? badges;
   late final List<Comment>? comments;
   late final List<Media> media;
 }

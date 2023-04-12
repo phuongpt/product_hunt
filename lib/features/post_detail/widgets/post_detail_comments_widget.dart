@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:product_hunt/core/constants/constants.dart';
+import 'package:product_hunt/core/extensions/extensions.dart';
 import 'package:product_hunt/core/helpers/datetime_helper.dart';
 import 'package:product_hunt/data/models/entities/entities.dart';
 import 'package:random_avatar/random_avatar.dart';

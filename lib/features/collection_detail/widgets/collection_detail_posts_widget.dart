@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:product_hunt/core/constants/constants.dart';
+import 'package:product_hunt/core/extensions/extensions.dart';
 import 'package:product_hunt/data/models/entities/entities.dart';
 import 'package:product_hunt/features/shared/shared.dart';
 import 'package:sizer/sizer.dart';

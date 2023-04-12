@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:product_hunt/core/constants/constants.dart';
+import 'package:product_hunt/core/extensions/extensions.dart';
 import 'package:product_hunt/data/models/models.dart';
 import 'package:product_hunt/features/post_detail/cubit/post_detail_cubit.dart';
 import 'package:product_hunt/features/post_detail/widgets/widgets.dart';

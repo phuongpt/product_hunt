@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:product_hunt/core/constants/constants.dart';
+import 'package:product_hunt/core/extensions/extensions.dart';
 import 'package:product_hunt/data/models/models.dart';
 import 'package:product_hunt/features/collection_detail/widgets/widgets.dart';
 import 'package:styled_widget/styled_widget.dart';

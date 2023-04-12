@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:product_hunt/core/constants/sizing.dart';
-import 'package:product_hunt/core/constants/text_style.dart';
+import 'package:product_hunt/core/extensions/text_style_extension.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 class Header extends StatelessWidget {

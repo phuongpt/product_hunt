@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:product_hunt/core/constants/text_style.dart';
+import 'package:product_hunt/core/extensions/text_style_extension.dart';
 
 class ListLoadingFail extends StatelessWidget {
   const ListLoadingFail({super.key});

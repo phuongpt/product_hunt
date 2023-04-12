@@ -1,6 +1,17 @@
 // ignore_for_file: avoid_bool_literals_in_conditional_expressions
 
 class Topic {
+  Topic({
+    required this.id,
+    required this.name,
+    required this.slug,
+    required this.followersCount,
+    required this.followersCountString,
+    required this.isFollowing,
+    required this.postsCount,
+    required this.image,
+    required this.description,
+  });
   Topic.fromJson(Map<String, dynamic> json) {
     id = json['id'] as String;
     name = json['name'] as String;
