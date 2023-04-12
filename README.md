@@ -8,7 +8,7 @@ The project also uses Very Good CLI
 
 ---
 ## Showcase
-![showcase](https://github.com/phuongpt/product_hunt/blob/develop/docs/videos/product-hunt.mov) 
+![showcase](https://github.com/phuongpt/product_hunt/tree/develop/docs/videos/product-hunt.mp4) 
 
 ---
 
@@ -74,11 +74,11 @@ The application utilizes the following third-party libraries:
 ## Running Tests
 The application has unit tests for: 
 
-`repositories`,
+`Repository`
 
-`Bloc`,
+`Bloc`
  
-`Widgets`
+`Widget`
 
 To run all unit and widget tests use the following command:
 
@@ -90,15 +90,6 @@ $ flutter test --coverage
 
 ## Build
 Android: 
-
-`repositories`,
-
-`Bloc`,
- 
-`Widgets`
-
-To run all unit and widget tests use the following command:
-
 
 ```sh
 # Development
@@ -115,5 +106,5 @@ $ flutter build apk --target lib/main_production.dart --flavor production --rele
 
 ## Working with Translations
 
-This project relies on [flutter_localizations][https://api.flutter.dev/flutter/flutter_localizations/flutter_localizations-library.html] and follows the [official internationalization guide for Flutter][https://flutter.dev/docs/development/accessibility-and-localization/internationalization].
+This project relies on `flutter_localizations`.
 

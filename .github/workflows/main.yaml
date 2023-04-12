@@ -22,8 +22,3 @@ jobs:
           flutter-version: '3.7.6'
       - run: flutter pub get
       - run: flutter test --coverage
-      - run: flutter build apk --target lib/main_development.dart --flavor development --release -v
-      - uses: actions/upload-artifact@v1
-        with:
-          name: app-development-release
-          path: build/app/outputs/flutter-apk/app-development-release.apk
