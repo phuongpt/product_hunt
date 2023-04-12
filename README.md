@@ -1,6 +1,6 @@
 # Product Hunt
 
-[![Coverage](https://github.com/phuongpt/product_hunt/actions/workflows/main.yml/badge.svg)](https://github.com/phuongpt/product_hunt/actions/workflows/main.yml)
+[![Coverage](https://github.com/phuongpt/product_hunt/actions/workflows/main.yaml/badge.svg)](https://github.com/phuongpt/product_hunt/actions/workflows/main.yaml)
 
 The project is a mobile application built with Flutter that serves as a platform to discover and share new products, from Product Hunt. It uses Bloc as the state management and architecture. The project use GraphQL to communicate with the backend.
 
@@ -8,7 +8,11 @@ The project also uses Very Good CLI
 
 ---
 ## Showcase
-![showcase](https://github.com/phuongpt/product_hunt/tree/develop/docs/videos/product-hunt.mp4) 
+
+<video width="1080" height="720" controls>
+  <source src="https://github.com/phuongpt/product_hunt/raw/develop/docs/videos/product-hunt.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 ---
 
