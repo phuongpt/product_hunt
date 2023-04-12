@@ -9,10 +9,7 @@ The project also uses Very Good CLI
 ---
 ## Showcase
 
-<video width="320" height="240" controls>
-  <source src="https://github.com/phuongpt/product_hunt/raw/develop/docs/videos/product-hunt.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+[![](https://www.youtube.com/watch?v=r_0ThOGVcKA)](https://www.youtube.com/watch?v=r_0ThOGVcKA)
 
 ---
 
