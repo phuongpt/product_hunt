@@ -36,7 +36,7 @@ class _PostWidgetState extends State<PostWidget> {
           slivers: <Widget>[
             SliverList(
               delegate: SliverChildListDelegate([
-                const Header(title: 'Ranking'),
+                const Header(title: 'Next Things'),
               ]),
             ),
             SliverList(

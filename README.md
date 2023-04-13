@@ -9,8 +9,25 @@ The project also uses Very Good CLI
 ---
 ## Showcase
 
-https://user-images.githubusercontent.com/4443583/231635865-ad6bcc51-2300-4e67-b415-a309a56456c8.mp4
 
+https://user-images.githubusercontent.com/4443583/231635865-ad6bcc51-2300-4e67-b415-a309a56456c8.mp4
+<div style="display: flex;">
+  <div style="flex: 1;">
+    https://github.com/phuongpt/nextjs-2fa/blob/develop/docs/images/screen1.png
+  </div>
+  <div style="flex: 1;">
+    https://github.com/phuongpt/nextjs-2fa/blob/develop/docs/images/screen2.png
+  </div>
+  <div style="flex: 1;">
+    https://github.com/phuongpt/nextjs-2fa/blob/develop/docs/images/screen3.png
+  </div>
+  <div style="flex: 1;">
+    https://github.com/phuongpt/nextjs-2fa/blob/develop/docs/images/screen4.png
+  </div>
+  <div style="flex: 1;">
+    https://github.com/phuongpt/nextjs-2fa/blob/develop/docs/images/screen5png
+  </div>
+</div>
 ---
 
 ## Getting Started

@@ -44,15 +44,6 @@ class TopicDetailView extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.adaptive.share_sharp,
-              color: Colors.white,
-            ),
-          )
-        ],
       ),
       backgroundColor: ColorPalette.backgroundScaffoldColor,
       body: BlocBuilder<TopicDetailCubit, TopicDetailState>(
