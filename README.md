@@ -9,7 +9,7 @@ The project also uses Very Good CLI
 ---
 ## Showcase
 
-[![](https://www.youtube.com/watch?v=r_0ThOGVcKA)](https://www.youtube.com/watch?v=r_0ThOGVcKA)
+https://user-images.githubusercontent.com/4443583/231635865-ad6bcc51-2300-4e67-b415-a309a56456c8.mp4
 
 ---
 
