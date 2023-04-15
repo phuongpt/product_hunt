@@ -1,4 +1,4 @@
-package com.example.verygoodcore.product_hunt
+package com.opapp.product
 
 import io.flutter.embedding.android.FlutterActivity
 

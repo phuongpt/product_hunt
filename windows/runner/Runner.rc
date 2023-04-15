@@ -89,11 +89,11 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example.verygoodcore.product-hunt" "\0"
+            VALUE "CompanyName", "com.opapp.product" "\0"
             VALUE "FileDescription", "product_hunt" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "product_hunt" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2022 com.example.verygoodcore.product-hunt. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2022 com.opapp.product. All rights reserved." "\0"
             VALUE "OriginalFilename", "product_hunt.exe" "\0"
             VALUE "ProductName", "Product Hunt" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
