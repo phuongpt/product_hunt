@@ -1,6 +1,6 @@
 # Product Hunt
 
-[![Coverage](https://github.com/phuongpt/product_hunt/actions/workflows/main.yaml/badge.svg)](https://github.com/phuongpt/product_hunt/actions/workflows/main.yaml)
+[![Coverage](https://github.com/phuongpt/product_hunt/actions/workflows/main.yaml/badge.svg?branch=develop)](https://github.com/phuongpt/product_hunt/actions/workflows/main.yaml)
 
 The project is a mobile application built with Flutter that serves as a platform to discover and share new products, from Product Hunt. It uses Bloc as the state management and architecture. The project uses GraphQL to communicate with the backend.
 
