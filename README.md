@@ -1,10 +1,11 @@
 # Product Hunt
 
 [![Coverage](https://github.com/phuongpt/product_hunt/actions/workflows/main.yaml/badge.svg?branch=develop)](https://github.com/phuongpt/product_hunt/actions/workflows/main.yaml)
+![style: very good analysis][very_good_analysis_badge]
 
 The project is a mobile application built with Flutter that serves as a platform to discover and share new products, from Product Hunt. It uses Bloc as the state management and architecture. The project uses GraphQL to communicate with the backend.
 
-The project also uses Very Good CLI
+And [Crybse](https://github.com/phuongpt/crybse) is another project which uses RiverPod and clean architecture
 
 ---
 ## Showcase
@@ -100,3 +101,4 @@ $ flutter build apk --target lib/main_staging.dart --flavor staging --release -v
 $ flutter build apk --target lib/main_production.dart --flavor production --release -v
 ```
 
+[very_good_analysis_badge]: https://img.shields.io/badge/style-very_good_analysis-B22C89.svg
